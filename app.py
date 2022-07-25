@@ -5,7 +5,6 @@ import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request
 from flask_restful import Api
-from psycopg2.extensions import AsIs
 
 from sql_query import build_query
 
