@@ -25,13 +25,13 @@ def build_query(object_id, object_name):
 			extract(epoch from (end_date - start_date))/60 total_time 
 			from task_instance
 			where
-			{{ object_id }} in ('{{ object_name }}')
+			{{object_id}} in ('{{object_name}}')
 			and task_id not in ('start', 'end', 'check_end', 'end_failure', 'end.end_failure', 'end_success', 'end.end_success')
 			and state in ('success')
 			and start_date is not null
 			and try_number != 0) ti
-		group by {{ object_id }}
-		order by {{ object_id }};
+		group by {{object_id}}
+		order by {{object_id}};
 	"""
 
     j = JinjaSql(param_style="pyformat")
