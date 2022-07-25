@@ -62,8 +62,8 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
     cred = creds["env"].get(env)
 
     params = {
-        'object_id': object_id,
-		'object_name': object_name,
+        "object_id": object_id,
+        "object_name": object_name,
     }
 
     query = build_query(**params)
@@ -76,10 +76,7 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
             host=cred.get("host"),
             port=cred.get("port"),
         )
-        airflow_df = pd.read_sql(
-            query,
-            conn,
-        )
+        airflow_df = pd.read_sql(query, conn)
     except Exception as err:
         print(err)
     finally:
@@ -114,8 +111,8 @@ def task_id(task_id=None):
             object_id="task_id", object_name=task_id, env=args.get("env")
         )
         print(airflow_replica_df)
-        airflow_replica_df['task_id'] = (
-            airflow_replica_df['task_id'].str.split(".").str.get(-1)
+        airflow_replica_df["task_id"] = (
+            airflow_replica_df["task_id"].str.split(".").str.get(-1)
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df

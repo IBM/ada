@@ -1,13 +1,14 @@
 from jinjasql import JinjaSql
 
+
 def build_query(object_id, object_name):
 
-	params = {
-		'object_id': object_id,
-		'object_name': object_name,
-	}
+    params = {
+        "object_id": object_id,
+        "object_name": object_name,
+    }
 
-	query_template = """
+    query_template = """
 		select
 		{{object_id}},
 		max(runs) count_runs,
@@ -33,11 +34,11 @@ def build_query(object_id, object_name):
 		order by {{ object_id }};
 	"""
 
-	j = JinjaSql(param_style='pyformat')
-	query, bind_params = j.prepare_query(query_template, params)
+    j = JinjaSql(param_style="pyformat")
+    query, bind_params = j.prepare_query(query_template, params)
 
-	print(query)
-	print(bind_params)
-	print(query % bind_params)
+    print(query)
+    print(bind_params)
+    print(query % bind_params)
 
-	return query % bind_params
+    return query % bind_params
