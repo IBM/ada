@@ -31,8 +31,6 @@ def authentication_layer():
 def retrieve_data_from_scheduling(env, object_id, object_name):
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
-    print(object_id, object_name)
-
     creds = {
         "env": {
             "stg": {
@@ -110,7 +108,7 @@ def task_id(task_id=None):
         airflow_replica_df = retrieve_data_from_scheduling(
             object_id="task_id", object_name=task_id, env=args.get("env")
         )
-        print(airflow_replica_df)
+
         airflow_replica_df["task_id"] = (
             airflow_replica_df["task_id"].str.split(".").str.get(-1)
         )

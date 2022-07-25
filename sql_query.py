@@ -37,8 +37,4 @@ def build_query(object_id, object_name):
     j = JinjaSql(param_style="pyformat")
     query, bind_params = j.prepare_query(query_template, params)
 
-    print(query)
-    print(bind_params)
-    print(query % bind_params)
-
     return query % bind_params
