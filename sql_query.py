@@ -4,8 +4,8 @@ from jinjasql import JinjaSql
 def build_query(**params):
 
     params = {
-        "object_id": params.get('object_id'),
-        "object_name": params.get('object_name'),
+        "object_id": params.get("object_id"),
+        "object_name": params.get("object_name"),
     }
 
     query_template = """
