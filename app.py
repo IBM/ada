@@ -5,7 +5,8 @@ import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request
 from flask_restful import Api
-from psycopg2.extensions import AsIs
+
+from sql_query import build_query
 
 
 app = Flask(__name__)
@@ -57,31 +58,12 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
 
     cred = creds["env"].get(env)
 
-    query = """
-        select
-        %(object_id)s,
-        max(runs) count_runs,
-        ceiling(avg(total_time)) average,
-        ceiling(percentile_cont(0.5) within group (order by (total_time))) median, 
-        ceiling(max(total_time)) maximum,
-        ceiling(min(total_time)) minimum,
-        ceiling(cast(stddev(total_time) as integer)) standard_deviation,
-        ceiling(cast(variance(total_time) as bigint)) variance_,
-        ceiling(((ceiling(percentile_cont(0.5) within group (order by (total_time))) + ceiling(cast(stddev(total_time) as integer)))/ceiling(percentile_cont(0.5) within group (order by (total_time))))*ceiling(percentile_cont(0.5) within group (order by (total_time)))*1.2) score
-        from (
-            select *, 
-            row_number() over (partition by task_id, dag_id order by dag_id) runs, 
-            extract(epoch from (end_date - start_date))/60 total_time 
-            from task_instance
-            where
-            %(object_id)s in (%(object_name)s)
-            and task_id not in ('start', 'end', 'check_end', 'end_failure', 'end.end_failure', 'end_success', 'end.end_success')
-            and state in ('success')
-            and start_date is not null
-            and try_number != 0) ti
-        group by %(object_id)s
-        order by %(object_id)s;
-	"""
+    params = {
+        "object_id": object_id,
+        "object_name": object_name,
+    }
+
+    query = build_query(**params)
 
     try:
         conn = pg.connect(
@@ -91,11 +73,7 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
             host=cred.get("host"),
             port=cred.get("port"),
         )
-        airflow_df = pd.read_sql(
-            query,
-            conn,
-            params={"object_id": AsIs(object_id), "object_name": object_name},
-        )
+        airflow_df = pd.read_sql(query, conn)
     except Exception as err:
         print(err)
     finally:

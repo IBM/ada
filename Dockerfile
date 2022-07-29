@@ -18,11 +18,10 @@ RUN apt-get update --yes && \
 RUN mkdir app
 
 COPY app.py app/app.py
+COPY sql_query.py app/sql_query.py
 COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
-
-COPY stocator-1.1.0-IBM-SDK-jar-with-dependencies.jar /usr/local/lib/python3.7/site-packages/pyspark/jars/stocator-1.1.0-IBM-SDK-jar-with-dependencies.jar
 
 EXPOSE 7000
 
