@@ -30,34 +30,6 @@ def authentication_layer():
 def retrieve_data_from_scheduling(env, object_id, object_name):
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
-    creds = {
-        "env": {
-            "stg": {
-                "database": os.getenv("DATABASE_STG"),
-                "user": os.getenv("USER_STG"),
-                "password": os.getenv("PASS_STG"),
-                "host": os.getenv("HOST_STG"),
-                "port": os.getenv("PORT_STG"),
-            },
-            "red": {
-                "database": os.getenv("DATABASE_RED"),
-                "user": os.getenv("USER_RED"),
-                "password": os.getenv("PASS_RED"),
-                "host": os.getenv("HOST_RED"),
-                "port": os.getenv("PORT_RED"),
-            },
-            "black": {
-                "database": os.getenv("DATABASE_BLACK"),
-                "user": os.getenv("USER_BLACK"),
-                "password": os.getenv("PASS_BLACK"),
-                "host": os.getenv("HOST_BLACK"),
-                "port": os.getenv("PORT_BLACK"),
-            },
-        }
-    }
-
-    cred = creds["env"].get(env)
-
     params = {
         "object_id": object_id,
         "object_name": object_name,
@@ -67,11 +39,11 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
 
     try:
         conn = pg.connect(
-            database=cred.get("database"),
-            user=cred.get("user"),
-            password=cred.get("password"),
-            host=cred.get("host"),
-            port=cred.get("port"),
+            database=os.getenv("DATABASE"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASS"),
+            host=os.getenv("HOST"),
+            port=os.getenv("PORT"),
         )
         airflow_df = pd.read_sql(query, conn)
     except Exception as err:
