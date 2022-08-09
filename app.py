@@ -1,9 +1,11 @@
 import os
+import json
 import pandas as pd
 import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request
-from flask_restful import Api
+from flask_restful import Api, Response
+from http import HTTPStatus
 
 from models.sql_query import build_query
 
@@ -11,10 +13,21 @@ from models.sql_query import build_query
 app = Flask(__name__)
 api = Api(app)
 
+def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
+    failure_dict = {
+        "result": "failure",
+        "reason": "",
+    }
+    failure_dict.update({"reason": message})
+    return Response(json.dumps(failure_dict), status_code.value)
+
 
 def authentication_layer():
     headers = request.headers
     token = headers.get("api_key")
+
+    if not token:
+        error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
 
     key = Fernet(str.encode(os.getenv("PRIV_KEY")))
 
@@ -23,6 +36,7 @@ def authentication_layer():
 
     if decrypted_user_key == decrypted_api_key:
         return True
+    error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
     return False
 
 
