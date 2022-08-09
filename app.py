@@ -27,7 +27,7 @@ def authentication_layer():
     token = headers.get("api_key")
 
     if not token:
-        error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
 
     key = Fernet(str.encode(os.getenv("PRIV_KEY")))
 
@@ -36,8 +36,7 @@ def authentication_layer():
 
     if decrypted_user_key == decrypted_api_key:
         return True
-    error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
-    return False
+    return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 def retrieve_data_from_scheduling(object_id, object_name):
