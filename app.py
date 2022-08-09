@@ -3,8 +3,8 @@ import json
 import pandas as pd
 import psycopg2 as pg
 from cryptography.fernet import Fernet
-from flask import Flask, request
-from flask_restful import Api, Response
+from flask import Flask, request, Response
+from flask_restful import Api
 from http import HTTPStatus
 
 from models.sql_query import build_query
@@ -81,7 +81,11 @@ def dag_id(dag_id=None):
 @app.route("/task_id/<task_id>", methods=["GET"])
 def task_id(task_id=None):
 
-    authentication_layer()
+    try:
+        return authentication_layer()
+    except:
+        pass
+
     airflow_replica_df = retrieve_data_from_scheduling(
         object_id="task_id", object_name=task_id
     )
