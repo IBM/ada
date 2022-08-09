@@ -59,7 +59,6 @@ def dag_id(dag_id=None):
     if not authentication_layer():
         raise Exception
     else:
-        args = request.args
         airflow_replica_df = retrieve_data_from_scheduling(
             object_id="dag_id", object_name=dag_id
         )
@@ -74,7 +73,6 @@ def task_id(task_id=None):
     if not authentication_layer():
         raise Exception
     else:
-        args = request.args
         airflow_replica_df = retrieve_data_from_scheduling(
             object_id="task_id", object_name=task_id
         )
