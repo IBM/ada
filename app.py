@@ -1,12 +1,11 @@
 import os
-import logging
 import pandas as pd
 import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request
 from flask_restful import Api
 
-from sql_query import build_query
+from models.sql_query import build_query
 
 
 app = Flask(__name__)
@@ -27,7 +26,7 @@ def authentication_layer():
     return False
 
 
-def retrieve_data_from_scheduling(env, object_id, object_name):
+def retrieve_data_from_scheduling(object_id, object_name):
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
     params = {
@@ -62,7 +61,7 @@ def dag_id(dag_id=None):
     else:
         args = request.args
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id, env=args.get("env")
+            object_id="dag_id", object_name=dag_id
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
 
@@ -77,7 +76,7 @@ def task_id(task_id=None):
     else:
         args = request.args
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="task_id", object_name=task_id, env=args.get("env")
+            object_id="task_id", object_name=task_id
         )
 
         airflow_replica_df["task_id"] = (
