@@ -18,7 +18,7 @@ RUN apt-get update --yes && \
 RUN mkdir app
 
 COPY app.py app/app.py
-COPY sql_query.py app/sql_query.py
+COPY models/sql_query.py app/sql_query.py
 COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
