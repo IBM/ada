@@ -69,32 +69,28 @@ def retrieve_data_from_scheduling(object_id, object_name):
 @app.route("/dag_id/<dag_id>", methods=["GET"])
 def dag_id(dag_id=None):
 
-    if not authentication_layer():
-        raise Exception
-    else:
-        airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id
-        )
-        airflow_replica_df = airflow_replica_df.to_json(orient="records")
+    authentication_layer()
+    airflow_replica_df = retrieve_data_from_scheduling(
+        object_id="dag_id", object_name=dag_id
+    )
+    airflow_replica_df = airflow_replica_df.to_json(orient="records")
 
-        return airflow_replica_df
+    return airflow_replica_df
 
 
 @app.route("/task_id/<task_id>", methods=["GET"])
 def task_id(task_id=None):
 
-    if not authentication_layer():
-        raise Exception
-    else:
-        airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="task_id", object_name=task_id
-        )
+    authentication_layer()
+    airflow_replica_df = retrieve_data_from_scheduling(
+        object_id="task_id", object_name=task_id
+    )
 
-        airflow_replica_df["task_id"] = (
-            airflow_replica_df["task_id"].str.split(".").str.get(-1)
-        )
-        airflow_replica_df = airflow_replica_df.to_json(orient="records")
-        return airflow_replica_df
+    airflow_replica_df["task_id"] = (
+        airflow_replica_df["task_id"].str.split(".").str.get(-1)
+    )
+    airflow_replica_df = airflow_replica_df.to_json(orient="records")
+    return airflow_replica_df
 
 
 if __name__ == "__main__":
