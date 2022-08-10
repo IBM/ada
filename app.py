@@ -90,9 +90,6 @@ def task_id(task_id=None):
         object_id="task_id", object_name=task_id
     )
 
-    airflow_replica_df["task_id"] = (
-        airflow_replica_df["task_id"].str.split(".").str.get(-1)
-    )
     airflow_replica_df = airflow_replica_df.to_json(orient="records")
     return airflow_replica_df
 
