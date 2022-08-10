@@ -13,6 +13,15 @@ from models.sql_query import build_query
 app = Flask(__name__)
 api = Api(app)
 
+class Error(Exception):
+    pass
+
+class UnauthorizedException(Error):
+    pass
+
+class ForbiddenException(Error):
+    pass
+
 def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
     failure_dict = {
         "result": "failure",
@@ -27,7 +36,7 @@ def authentication_layer():
     token = headers.get("api_key")
 
     if not token:
-        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+        raise UnauthorizedException
 
     key = Fernet(str.encode(os.getenv("PRIV_KEY")))
 
@@ -36,7 +45,7 @@ def authentication_layer():
 
     if decrypted_user_key == decrypted_api_key:
         return True
-    return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
+    raise ForbiddenException
 
 
 def retrieve_data_from_scheduling(object_id, object_name):
@@ -69,29 +78,33 @@ def retrieve_data_from_scheduling(object_id, object_name):
 @app.route("/dag_id/<dag_id>", methods=["GET"])
 def dag_id(dag_id=None):
 
-    authentication_layer()
-    airflow_replica_df = retrieve_data_from_scheduling(
-        object_id="dag_id", object_name=dag_id
-    )
-    airflow_replica_df = airflow_replica_df.to_json(orient="records")
-
-    return airflow_replica_df
+    try:
+        authentication_layer()
+        airflow_replica_df = retrieve_data_from_scheduling(
+            object_id="dag_id", object_name=dag_id
+        )
+        airflow_replica_df = airflow_replica_df.to_json(orient="records")
+        return airflow_replica_df
+    except UnauthorizedException:
+        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+    except ForbiddenException:
+        return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 @app.route("/task_id/<task_id>", methods=["GET"])
 def task_id(task_id=None):
 
     try:
-        return authentication_layer()
-    except:
-        pass
-
-    airflow_replica_df = retrieve_data_from_scheduling(
-        object_id="task_id", object_name=task_id
-    )
-
-    airflow_replica_df = airflow_replica_df.to_json(orient="records")
-    return airflow_replica_df
+        authentication_layer()
+        airflow_replica_df = retrieve_data_from_scheduling(
+            object_id="task_id", object_name=task_id
+        )
+        airflow_replica_df = airflow_replica_df.to_json(orient="records")
+        return airflow_replica_df
+    except UnauthorizedException:
+        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+    except ForbiddenException:
+        return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 if __name__ == "__main__":
