@@ -75,9 +75,10 @@ def retrieve_data_from_scheduling(object_id, object_name):
     return airflow_df
 
 
-@app.route("/dag_id/<dag_id>", methods=["GET"])
+@app.route("/dag_id", methods=["POST"])
 def dag_id(dag_id=None):
 
+    dag_id=request.form['dag_id']
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
@@ -91,9 +92,10 @@ def dag_id(dag_id=None):
         return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
-@app.route("/task_id/<task_id>", methods=["GET"])
+@app.route("/task_id", methods=["POST"])
 def task_id(task_id=None):
 
+    task_id=request.form['task_id']
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
