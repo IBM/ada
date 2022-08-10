@@ -106,6 +106,10 @@ def task_id(task_id=None):
     except ForbiddenException:
         return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return error_handler(f"Route not found.", HTTPStatus.NOT_FOUND)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=7000, debug=True)
