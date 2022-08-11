@@ -28,8 +28,8 @@ class ForbiddenException(Error):
 
 def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
     failure_dict = {
-        "result": "failure",
-        "reason": "",
+        "Result": "Failure",
+        "Reason": "",
     }
     failure_dict.update({"reason": message})
     return Response(json.dumps(failure_dict), status_code.value)
