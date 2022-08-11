@@ -1,11 +1,11 @@
 import os
 import json
-from http import HTTPStatus
 import pandas as pd
 import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request, Response
 from flask_restful import Api
+from http import HTTPStatus
 
 from models.sql_query import build_query
 
