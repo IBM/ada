@@ -1,11 +1,11 @@
 import os
 import json
+from http import HTTPStatus
 import pandas as pd
 import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request, Response
 from flask_restful import Api
-from http import HTTPStatus
 
 from models.sql_query import build_query
 
@@ -91,9 +91,9 @@ def dag_id(dag_id=None):
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
     except UnauthorizedException:
-        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+        return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
     except ForbiddenException:
-        return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
+        return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 @app.route("/task_id", methods=["POST"])
@@ -108,14 +108,14 @@ def task_id(task_id=None):
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
     except UnauthorizedException:
-        return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+        return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
     except ForbiddenException:
-        return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
+        return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return error_handler(f"Route not found.", HTTPStatus.NOT_FOUND)
+    return error_handler("Route not found.", HTTPStatus.NOT_FOUND)
 
 
 if __name__ == "__main__":
