@@ -1,6 +1,7 @@
 import os
 import json
 import pandas as pd
+from pandas.core.frame import DataFrame
 import psycopg2 as pg
 from cryptography.fernet import Fernet
 from flask import Flask, request, Response
@@ -35,7 +36,7 @@ def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> di
     return Response(json.dumps(failure_dict), status_code.value)
 
 
-def authentication_layer():
+def authentication_layer() -> bool:
     headers = request.headers
     token = headers.get("api_key")
 
@@ -52,7 +53,7 @@ def authentication_layer():
     raise ForbiddenException
 
 
-def retrieve_data_from_scheduling(object_id, object_name):
+def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
     params = {
