@@ -13,14 +13,18 @@ from models.sql_query import build_query
 app = Flask(__name__)
 api = Api(app)
 
+
 class Error(Exception):
     pass
+
 
 class UnauthorizedException(Error):
     pass
 
+
 class ForbiddenException(Error):
     pass
+
 
 def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
     failure_dict = {
@@ -78,7 +82,7 @@ def retrieve_data_from_scheduling(object_id, object_name):
 @app.route("/dag_id", methods=["POST"])
 def dag_id(dag_id=None):
 
-    dag_id=request.form['dag_id']
+    dag_id = request.form["dag_id"]
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
@@ -95,7 +99,7 @@ def dag_id(dag_id=None):
 @app.route("/task_id", methods=["POST"])
 def task_id(task_id=None):
 
-    task_id=request.form['task_id']
+    task_id = request.form["task_id"]
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
@@ -107,6 +111,7 @@ def task_id(task_id=None):
         return error_handler(f"Missing API KEY.", HTTPStatus.UNAUTHORIZED)
     except ForbiddenException:
         return error_handler(f"Wrong API KEY.", HTTPStatus.FORBIDDEN)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
