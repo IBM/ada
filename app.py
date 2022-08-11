@@ -69,7 +69,7 @@ def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
             user=os.getenv("USER"),
             password=os.getenv("PASS"),
             host=os.getenv("HOST"),
-            port=os.getenv("PORT"),
+            port=os.getenv("API_PORT"),
         )
         airflow_df = pd.read_sql(query, conn)
     except Exception as err:
