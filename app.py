@@ -1,20 +1,47 @@
 import os
-import logging
+import json
 import pandas as pd
+from pandas.core.frame import DataFrame
 import psycopg2 as pg
 from cryptography.fernet import Fernet
-from flask import Flask, request
+from flask import Flask, request, Response
 from flask_restful import Api
-from psycopg2.extensions import AsIs
+from http import HTTPStatus
+
+from models.sql_query import build_query
 
 
 app = Flask(__name__)
 api = Api(app)
 
 
-def authentication_layer():
+class Error(Exception):
+    pass
+
+
+class UnauthorizedException(Error):
+    pass
+
+
+class ForbiddenException(Error):
+    pass
+
+
+def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
+    failure_dict = {
+        "Result": "Failure",
+        "Reason": "",
+    }
+    failure_dict.update({"Reason": message})
+    return Response(json.dumps(failure_dict), status_code.value)
+
+
+def authentication_layer() -> bool:
     headers = request.headers
     token = headers.get("api_key")
+
+    if not token:
+        raise UnauthorizedException
 
     key = Fernet(str.encode(os.getenv("PRIV_KEY")))
 
@@ -23,79 +50,28 @@ def authentication_layer():
 
     if decrypted_user_key == decrypted_api_key:
         return True
-    return False
+    raise ForbiddenException
 
 
-def retrieve_data_from_scheduling(env, object_id, object_name):
+def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
-    creds = {
-        "env": {
-            "stg": {
-                "database": os.getenv("DATABASE_STG"),
-                "user": os.getenv("USER_STG"),
-                "password": os.getenv("PASS_STG"),
-                "host": os.getenv("HOST_STG"),
-                "port": os.getenv("PORT_STG"),
-            },
-            "red": {
-                "database": os.getenv("DATABASE_RED"),
-                "user": os.getenv("USER_RED"),
-                "password": os.getenv("PASS_RED"),
-                "host": os.getenv("HOST_RED"),
-                "port": os.getenv("PORT_RED"),
-            },
-            "black": {
-                "database": os.getenv("DATABASE_BLACK"),
-                "user": os.getenv("USER_BLACK"),
-                "password": os.getenv("PASS_BLACK"),
-                "host": os.getenv("HOST_BLACK"),
-                "port": os.getenv("PORT_BLACK"),
-            },
-        }
+    params = {
+        "object_id": object_id,
+        "object_name": object_name,
     }
 
-    cred = creds["env"].get(env)
-
-    query = """
-        select
-        %(object_id)s,
-        max(runs) count_runs,
-        ceiling(avg(total_time)) average,
-        ceiling(percentile_cont(0.5) within group (order by (total_time))) median, 
-        ceiling(max(total_time)) maximum,
-        ceiling(min(total_time)) minimum,
-        ceiling(cast(stddev(total_time) as integer)) standard_deviation,
-        ceiling(cast(variance(total_time) as bigint)) variance_,
-        ceiling(((ceiling(percentile_cont(0.5) within group (order by (total_time))) + ceiling(cast(stddev(total_time) as integer)))/ceiling(percentile_cont(0.5) within group (order by (total_time))))*ceiling(percentile_cont(0.5) within group (order by (total_time)))*1.2) score
-        from (
-            select *, 
-            row_number() over (partition by task_id, dag_id order by dag_id) runs, 
-            extract(epoch from (end_date - start_date))/60 total_time 
-            from task_instance
-            where
-            %(object_id)s in (%(object_name)s)
-            and task_id not in ('start', 'end', 'check_end', 'end_failure', 'end.end_failure', 'end_success', 'end.end_success')
-            and state in ('success')
-            and start_date is not null
-            and try_number != 0) ti
-        group by %(object_id)s
-        order by %(object_id)s;
-	"""
+    query = build_query(**params)
 
     try:
         conn = pg.connect(
-            database=cred.get("database"),
-            user=cred.get("user"),
-            password=cred.get("password"),
-            host=cred.get("host"),
-            port=cred.get("port"),
+            database=os.getenv("DATABASE"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASS"),
+            host=os.getenv("HOST"),
+            port=os.getenv("PORT"),
         )
-        airflow_df = pd.read_sql(
-            query,
-            conn,
-            params={"object_id": AsIs(object_id), "object_name": object_name},
-        )
+        airflow_df = pd.read_sql(query, conn)
     except Exception as err:
         print(err)
     finally:
@@ -107,34 +83,38 @@ def retrieve_data_from_scheduling(env, object_id, object_name):
 @app.route("/dag_id/<dag_id>", methods=["GET"])
 def dag_id(dag_id=None):
 
-    if not authentication_layer():
-        raise Exception
-    else:
-        args = request.args
+    try:
+        authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id, env=args.get("env")
+            object_id="dag_id", object_name=dag_id
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
-
         return airflow_replica_df
+    except UnauthorizedException:
+        return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+    except ForbiddenException:
+        return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
 @app.route("/task_id/<task_id>", methods=["GET"])
 def task_id(task_id=None):
 
-    if not authentication_layer():
-        raise Exception
-    else:
-        args = request.args
+    try:
+        authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="task_id", object_name=task_id, env=args.get("env")
-        )
-
-        airflow_replica_df["task_id"] = (
-            airflow_replica_df["task_id"].str.split(".").str.get(-1)
+            object_id="task_id", object_name=task_id
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
+    except UnauthorizedException:
+        return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+    except ForbiddenException:
+        return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return error_handler("Route not found.", HTTPStatus.NOT_FOUND)
 
 
 if __name__ == "__main__":
