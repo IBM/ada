@@ -1,23 +1,26 @@
-import app
+from cryptography.fernet import InvalidToken
+import app as application
 from app import UnauthorizedException, ForbiddenException
-import unittest
 import pytest
-from unittest.mock import MagicMock
+from unittest import mock
 
-client = app.app.test_client()
+client = application.app.test_client()
 
-# def test_success():
-#     app.authentication_layer = mock.MagicMock(return_value=True)
-#     #app.airflow_replica_df = mock.MagicMock(return_value=True)
-#     response = client.get('/task_id/task_id')
-#     assert response.status_code == 200
 
-# def test_authentication_layer(mocker):
-#     mocker.patch.object(requests, "request", return_value=None)
-#     with pytest.raises(UnauthorizedException):
-#         app.authentication_layer()
+def test_authentication_layer_unauthorized():
+    with pytest.raises(UnauthorizedException):
+        with application.app.test_request_context():
+            application.authentication_layer()
 
-def test_retrieve_data_from_scheduling_error():
-	with pytest.raises(Exception) as excinfo:
-		app.retrieve_data_from_scheduling('anything', 'anything')
-	assert str(excinfo.value) == 'some info'
+def test_authentication_layer_forbidden(mocker):
+    mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
+    with pytest.raises(ForbiddenException):
+        with application.app.test_request_context():
+            application.authentication_layer()
+
+def test_invalid_token():
+    with pytest.raises(InvalidToken):
+        with application.app.test_request_context(
+            headers={"api_key": "wrong_api_key"}
+        ):
+            application.authentication_layer()
