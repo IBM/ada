@@ -27,7 +27,7 @@ def test_authentication_layer_forbidden(mocker):
             application.authentication_layer()
 
 
-def test_invalid_token():
+def test_authentication_layer_invalid_token():
     with pytest.raises(InvalidToken):
         with application.app.test_request_context(headers={"api_key": "wrong_api_key"}):
             application.authentication_layer()
