@@ -72,8 +72,8 @@ def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
             port=os.getenv("API_PORT"),
         )
         airflow_df = pd.read_sql(query, conn)
-    except Exception as err:
-        print(err)
+    except pg.DatabaseError:
+        raise pg.DatabaseError
     finally:
         conn.close()
 
