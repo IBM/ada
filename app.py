@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from pandas.core.frame import DataFrame
 import psycopg2 as pg
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 from flask import Flask, request, Response
 from flask_restful import Api
 from http import HTTPStatus
@@ -53,12 +53,13 @@ def authentication_layer() -> bool:
     raise ForbiddenException
 
 
-def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
+def retrieve_data_from_scheduling(object_id = None, object_name = None, query_select = "base_query") -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
     params = {
         "object_id": object_id,
         "object_name": object_name,
+        "query_select": query_select
     }
 
     query = build_query(**params)
@@ -79,6 +80,18 @@ def retrieve_data_from_scheduling(object_id, object_name) -> DataFrame:
 
     return airflow_df
 
+@app.route("/all", methods=["GET"])
+def all():
+
+    try:
+        authentication_layer()
+        airflow_replica_df = retrieve_data_from_scheduling(query_select = "all_query")
+        airflow_replica_df = airflow_replica_df.to_json(orient="records")
+        return airflow_replica_df
+    except UnauthorizedException:
+        return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
+    except (ForbiddenException, InvalidToken):
+        return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 @app.route("/dag_id/<dag_id>", methods=["GET"])
 def dag_id(dag_id=None):
@@ -92,7 +105,7 @@ def dag_id(dag_id=None):
         return airflow_replica_df
     except UnauthorizedException:
         return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
-    except ForbiddenException:
+    except (ForbiddenException, InvalidToken):
         return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
@@ -108,7 +121,7 @@ def task_id(task_id=None):
         return airflow_replica_df
     except UnauthorizedException:
         return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
-    except ForbiddenException:
+    except (ForbiddenException, InvalidToken):
         return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
 
 
