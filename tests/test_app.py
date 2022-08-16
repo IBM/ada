@@ -39,9 +39,18 @@ def test_authentication_layer_invalid_token():
             application.authentication_layer()
 
 
+def test_retrieve_data_from_scheduling_success(mocker):
+    data = [1, 2, 3]
+    df = pd.DataFrame(data, columns=['Numbers'])
+    mocker.patch.object(pg, "connect", return_value=PostgreMock())
+    mocker.patch.object(pd, "read_sql", return_value=df)
+    with application.app.test_request_context():
+        df = application.retrieve_data_from_scheduling(object_id="object_id", object_name="object_name")
+
+
 def test_retrieve_data_from_scheduling_database_error(mocker):
     mocker.patch.object(pg, "connect", return_value=PostgreMock())
     mocker.patch.object(pd, "read_sql", side_effect=pg.DatabaseError)
     with pytest.raises(pg.DatabaseError):
         with application.app.test_request_context():
-            application.retrieve_data_from_scheduling(object_id="task_id", object_name="task_id")
+            application.retrieve_data_from_scheduling(object_id="object_id", object_name="object_name")
