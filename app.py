@@ -27,7 +27,7 @@ class ForbiddenException(Error):
     pass
 
 
-def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
+def error_handler(message: str, status_code: HTTPStatus = HTTPStatus.BAD_REQUEST) -> Response:
     failure_dict = {
         "Result": "Failure",
         "Reason": "",
