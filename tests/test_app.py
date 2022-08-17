@@ -87,3 +87,35 @@ def test_task_id_success(mocker, mock_df):
     assert response.data.decode("utf-8")  == expected_return
 
 
+def test_task_id_unauthorized(mocker):
+    expected_return = json.dumps({
+        "Result": "Failure",
+        "Reason": "Missing API KEY.",
+    })
+    mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
+    response = client.get("/task_id/test_task_id")
+    assert response.status_code == 401
+    assert response.data.decode("utf-8") == expected_return
+
+
+def test_task_id_forbidden(mocker):
+    expected_return = json.dumps({
+        "Result": "Failure",
+        "Reason": "Wrong API KEY.",
+    })
+    mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
+    response = client.get("/task_id/test_task_id")
+    assert response.status_code == 403
+    assert response.data.decode("utf-8") == expected_return
+
+
+def test_task_id_invalid_token(mocker):
+    expected_return = json.dumps({
+        "Result": "Failure",
+        "Reason": "Wrong API KEY.",
+    })
+    mocker.patch("app.authentication_layer", side_effect=InvalidToken)
+    response = client.get("/task_id/test_task_id")
+    print(response)
+    assert response.status_code == 403
+    assert response.data.decode("utf-8") == expected_return
