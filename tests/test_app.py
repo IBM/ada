@@ -15,16 +15,22 @@ class PostgreMock:
     def close(self):
         return True
 
+@pytest.fixture
+def mock_df():
+    data = [1, 2, 3]
+    df = pd.DataFrame(data, columns=["Numbers"])
+    return df
 
-def test_error_handler(mocker):
-    expected_dict = {
+
+def test_error_handler():
+    expected_return = json.dumps({
         "Result": "Failure",
         "Reason": "Invalid request.",
-    }
+    })
     with application.app.test_request_context():
-        res = application.error_handler(message="Invalid request.", status_code=HTTPStatus.BAD_REQUEST)
-        assert json.loads(res.response[0]) == expected_dict
-        assert res.status_code == 400
+        response = application.error_handler(message="Invalid request.", status_code=HTTPStatus.BAD_REQUEST)
+        assert response.data.decode("utf-8") == expected_return
+        assert response.status_code == 400
 
 
 def test_authentication_layer_success(mocker):
@@ -53,13 +59,11 @@ def test_authentication_layer_invalid_token():
             application.authentication_layer()
 
 
-def test_retrieve_data_from_scheduling_success(mocker):
-    data = [1, 2, 3]
-    df = pd.DataFrame(data, columns=["Numbers"])
+def test_retrieve_data_from_scheduling_success(mocker, mock_df):
     mocker.patch.object(pg, "connect", return_value=PostgreMock())
-    mocker.patch.object(pd, "read_sql", return_value=df)
+    mocker.patch.object(pd, "read_sql", return_value=mock_df)
     with application.app.test_request_context():
-        df = application.retrieve_data_from_scheduling(
+        mock_df = application.retrieve_data_from_scheduling(
             object_id="object_id", object_name="object_name"
         )
 
@@ -72,3 +76,14 @@ def test_retrieve_data_from_scheduling_database_error(mocker):
             application.retrieve_data_from_scheduling(
                 object_id="object_id", object_name="object_name"
             )
+
+
+def test_task_id_success(mocker, mock_df):
+    expected_return = mock_df.to_json(orient='records')
+    mocker.patch("app.authentication_layer", return_value=True)
+    mocker.patch("app.retrieve_data_from_scheduling", return_value=mock_df)
+    response = client.get("/task_id/test_task_id")
+    assert response.status_code == 200
+    assert response.data.decode("utf-8")  == expected_return
+
+
