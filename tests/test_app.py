@@ -15,6 +15,7 @@ class PostgreMock:
     def close(self):
         return True
 
+
 @pytest.fixture
 def mock_df():
     data = [1, 2, 3]
@@ -23,12 +24,16 @@ def mock_df():
 
 
 def test_error_handler():
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Invalid request.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Invalid request.",
+        }
+    )
     with application.app.test_request_context():
-        response = application.error_handler(message="Invalid request.", status_code=HTTPStatus.BAD_REQUEST)
+        response = application.error_handler(
+            message="Invalid request.", status_code=HTTPStatus.BAD_REQUEST
+        )
         assert response.data.decode("utf-8") == expected_return
         assert response.status_code == 400
 
@@ -79,26 +84,30 @@ def test_retrieve_data_from_scheduling_database_error(mocker):
 
 
 def test_dag_id_success(mocker, mock_df):
-    expected_return = mock_df.to_json(orient='records')
+    expected_return = mock_df.to_json(orient="records")
     mocker.patch("app.authentication_layer", return_value=True)
     mocker.patch("app.retrieve_data_from_scheduling", return_value=mock_df)
     response = client.get("/dag_id/test_dag_id")
     assert response.status_code == 200
-    assert response.data.decode("utf-8")  == expected_return
+    assert response.data.decode("utf-8") == expected_return
+
 
 def test_all_success(mocker, mock_df):
-    expected_return = mock_df.to_json(orient='records')
+    expected_return = mock_df.to_json(orient="records")
     mocker.patch("app.authentication_layer", return_value=True)
     mocker.patch("app.retrieve_data_from_scheduling", return_value=mock_df)
     response = client.get("/all")
     assert response.status_code == 200
-    assert response.data.decode("utf-8")  == expected_return
+    assert response.data.decode("utf-8") == expected_return
+
 
 def test_all_unauthorized(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Missing API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Missing API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
     response = client.get("/all")
     assert response.status_code == 401
@@ -106,10 +115,12 @@ def test_all_unauthorized(mocker):
 
 
 def test_all_forbidden(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
     response = client.get("/all")
     assert response.status_code == 403
@@ -117,10 +128,12 @@ def test_all_forbidden(mocker):
 
 
 def test_all_invalid_token(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=InvalidToken)
     response = client.get("/all")
     assert response.status_code == 403
@@ -128,10 +141,12 @@ def test_all_invalid_token(mocker):
 
 
 def test_dag_id_unauthorized(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Missing API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Missing API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
     response = client.get("/dag_id/test_dag_id")
     assert response.status_code == 401
@@ -139,10 +154,12 @@ def test_dag_id_unauthorized(mocker):
 
 
 def test_dag_id_forbidden(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
     response = client.get("/dag_id/test_dag_id")
     assert response.status_code == 403
@@ -150,29 +167,34 @@ def test_dag_id_forbidden(mocker):
 
 
 def test_dag_id_invalid_token(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=InvalidToken)
     response = client.get("/dag_id/test_dag_id")
     assert response.status_code == 403
     assert response.data.decode("utf-8") == expected_return
 
+
 def test_task_id_success(mocker, mock_df):
-    expected_return = mock_df.to_json(orient='records')
+    expected_return = mock_df.to_json(orient="records")
     mocker.patch("app.authentication_layer", return_value=True)
     mocker.patch("app.retrieve_data_from_scheduling", return_value=mock_df)
     response = client.get("/task_id/test_task_id")
     assert response.status_code == 200
-    assert response.data.decode("utf-8")  == expected_return
+    assert response.data.decode("utf-8") == expected_return
 
 
 def test_task_id_unauthorized(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Missing API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Missing API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
     response = client.get("/task_id/test_task_id")
     assert response.status_code == 401
@@ -180,10 +202,12 @@ def test_task_id_unauthorized(mocker):
 
 
 def test_task_id_forbidden(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
     response = client.get("/task_id/test_task_id")
     assert response.status_code == 403
@@ -191,10 +215,12 @@ def test_task_id_forbidden(mocker):
 
 
 def test_task_id_invalid_token(mocker):
-    expected_return = json.dumps({
-        "Result": "Failure",
-        "Reason": "Wrong API KEY.",
-    })
+    expected_return = json.dumps(
+        {
+            "Result": "Failure",
+            "Reason": "Wrong API KEY.",
+        }
+    )
     mocker.patch("app.authentication_layer", side_effect=InvalidToken)
     response = client.get("/task_id/test_task_id")
     assert response.status_code == 403
