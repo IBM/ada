@@ -22,6 +22,7 @@ def mock_df():
     df = pd.DataFrame(data, columns=["Numbers"])
     return df
 
+
 missing_api_key = json.dumps(
     {
         "Result": "Failure",
@@ -35,6 +36,7 @@ wrong_api_key = json.dumps(
         "Reason": "Wrong API KEY.",
     }
 )
+
 
 def test_error_handler():
     expected_return = json.dumps(
@@ -127,6 +129,7 @@ def test_dag_id_success(mocker, mock_df):
     response = client.get("/dag_id/test_dag_id")
     assert response.status_code == 200
     assert response.data.decode("utf-8") == expected_return
+
 
 @pytest.mark.parametrize(
     "side_effect, status_code, expected_return",
