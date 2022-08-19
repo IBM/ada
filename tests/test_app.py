@@ -113,7 +113,7 @@ def test_all_success(mocker, mock_df):
         (InvalidToken, 403, wrong_api_key),
     ],
 )
-def test_all_unauthorized(mocker, side_effect, status_code, expected_return):
+def test_all_fail(mocker, side_effect, status_code, expected_return):
     mocker.patch("app.authentication_layer", side_effect=side_effect)
     response = client.get("/all")
     assert response.status_code == status_code
