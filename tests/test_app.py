@@ -22,28 +22,19 @@ def mock_df():
     df = pd.DataFrame(data, columns=["Numbers"])
     return df
 
+missing_api_key = json.dumps(
+    {
+        "Result": "Failure",
+        "Reason": "Missing API KEY.",
+    }
+)
 
-@pytest.fixture
-def expected_return_401():
-    expected_return_401 = json.dumps(
-        {
-            "Result": "Failure",
-            "Reason": "Missing API KEY.",
-        }
-    )
-    return expected_return_401
-
-
-@pytest.fixture
-def expected_return_403():
-    expected_return_403 = json.dumps(
-        {
-            "Result": "Failure",
-            "Reason": "Wrong API KEY.",
-        }
-    )
-    return expected_return_403
-
+wrong_api_key = json.dumps(
+    {
+        "Result": "Failure",
+        "Reason": "Wrong API KEY.",
+    }
+)
 
 def test_error_handler():
     expected_return = json.dumps(
@@ -114,25 +105,19 @@ def test_all_success(mocker, mock_df):
     assert response.data.decode("utf-8") == expected_return
 
 
-def test_all_unauthorized(mocker, expected_return_401):
-    mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
+@pytest.mark.parametrize(
+    "side_effect, status_code, expected_return",
+    [
+        (UnauthorizedException, 401, missing_api_key),
+        (ForbiddenException, 403, wrong_api_key),
+        (InvalidToken, 403, wrong_api_key),
+    ],
+)
+def test_all_unauthorized(mocker, side_effect, status_code, expected_return):
+    mocker.patch("app.authentication_layer", side_effect=side_effect)
     response = client.get("/all")
-    assert response.status_code == 401
-    assert response.data.decode("utf-8") == expected_return_401
-
-
-def test_all_forbidden(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
-    response = client.get("/all")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
-
-
-def test_all_invalid_token(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=InvalidToken)
-    response = client.get("/all")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
+    assert response.status_code == status_code
+    assert response.data.decode("utf-8") == expected_return
 
 
 def test_dag_id_success(mocker, mock_df):
@@ -143,26 +128,19 @@ def test_dag_id_success(mocker, mock_df):
     assert response.status_code == 200
     assert response.data.decode("utf-8") == expected_return
 
-
-def test_dag_id_unauthorized(mocker, expected_return_401):
-    mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
+@pytest.mark.parametrize(
+    "side_effect, status_code, expected_return",
+    [
+        (UnauthorizedException, 401, missing_api_key),
+        (ForbiddenException, 403, wrong_api_key),
+        (InvalidToken, 403, wrong_api_key),
+    ],
+)
+def test_dag_id_fail(mocker, side_effect, status_code, expected_return):
+    mocker.patch("app.authentication_layer", side_effect=side_effect)
     response = client.get("/dag_id/test_dag_id")
-    assert response.status_code == 401
-    assert response.data.decode("utf-8") == expected_return_401
-
-
-def test_dag_id_forbidden(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
-    response = client.get("/dag_id/test_dag_id")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
-
-
-def test_dag_id_invalid_token(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=InvalidToken)
-    response = client.get("/dag_id/test_dag_id")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
+    assert response.status_code == status_code
+    assert response.data.decode("utf-8") == expected_return
 
 
 def test_task_id_success(mocker, mock_df):
@@ -174,22 +152,16 @@ def test_task_id_success(mocker, mock_df):
     assert response.data.decode("utf-8") == expected_return
 
 
-def test_task_id_unauthorized(mocker, expected_return_401):
-    mocker.patch("app.authentication_layer", side_effect=UnauthorizedException)
+@pytest.mark.parametrize(
+    "side_effect, status_code, expected_return",
+    [
+        (UnauthorizedException, 401, missing_api_key),
+        (ForbiddenException, 403, wrong_api_key),
+        (InvalidToken, 403, wrong_api_key),
+    ],
+)
+def test_task_id_fail(mocker, side_effect, status_code, expected_return):
+    mocker.patch("app.authentication_layer", side_effect=side_effect)
     response = client.get("/task_id/test_task_id")
-    assert response.status_code == 401
-    assert response.data.decode("utf-8") == expected_return_401
-
-
-def test_task_id_forbidden(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=ForbiddenException)
-    response = client.get("/task_id/test_task_id")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
-
-
-def test_task_id_invalid_token(mocker, expected_return_403):
-    mocker.patch("app.authentication_layer", side_effect=InvalidToken)
-    response = client.get("/task_id/test_task_id")
-    assert response.status_code == 403
-    assert response.data.decode("utf-8") == expected_return_403
+    assert response.status_code == status_code
+    assert response.data.decode("utf-8") == expected_return
