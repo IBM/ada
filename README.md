@@ -13,8 +13,8 @@ Well, but what is the best way to identify a stuck pod? The answer is simple: ba
 
 <h2><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;Contents</h2>
 
-- [Business context](#Business context)
-- [Code Engine tutorial](#Code Engine tutorial)
+- [Business context](#business-context)
+- [Code Engine tutorial](#code-engine-tutorial)
 
 <h2><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;Business context</h2>
 
