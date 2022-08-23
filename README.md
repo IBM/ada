@@ -1,8 +1,6 @@
-# ADA - Airflow DAG Analytics
-
 <p align="center">
-    <img src="https://media.github.ibm.com/user/376942/files/5079e200-230f-11ed-9203-0273ed6491ad" height="128">
-    <h5 align="center">Airflow DAG Analytics</h5>
+    <img src="https://media.github.ibm.com/user/376942/files/5079e200-230f-11ed-9203-0273ed6491ad" height="160">
+    <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
 The amount of stuck pods became an increasing pain for us: whenever they happened, they would demand support requests followed by analysis that often resulted in simple and manual actions. Based on that, there arose a need to automate this process, in other words, to make us able to identify a stuck pod and take the appropriate action in a fully automatic way, transparent for both developer and user.
