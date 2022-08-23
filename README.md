@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://media.github.ibm.com/user/376942/files/5079e200-230f-11ed-9203-0273ed6491ad" height="160">
+    <img src="https://media.github.ibm.com/user/376942/files/1959ff80-2314-11ed-9089-83802913b53c" height="160">
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
