@@ -4,7 +4,7 @@ from models import sql_query
 from models.templates.templates import queries
 
 def test_build_query_success(mocker):
-	jinja_mock = mocker.patch("models.sql_query.JinjaSQL", autospec=True)
+	jinja_mock = mocker.patch("sql_query.JinjaSQL", autospec=True)
 	j = jinja_mock.return_value
 	params = {
         "object_id": "object_id",
