@@ -24,4 +24,4 @@ Well, but what is the best way to identify a stuck pod? The answer is simple: ba
 
 <h2>Deployment</h2>
 
-<h4>Code Engine tutorial</h4>
+<h3>Code Engine tutorial</h3>
