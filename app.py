@@ -27,7 +27,9 @@ class ForbiddenException(Error):
     pass
 
 
-def error_handler(message: str, status_code: int = HTTPStatus.BAD_REQUEST) -> dict:
+def error_handler(
+    message: str, status_code: HTTPStatus = HTTPStatus.BAD_REQUEST
+) -> Response:
     failure_dict = {
         "Result": "Failure",
         "Reason": "",
@@ -53,13 +55,15 @@ def authentication_layer() -> bool:
     raise ForbiddenException
 
 
-def retrieve_data_from_scheduling(object_id = None, object_name = None, query_select = "base_query") -> DataFrame:
+def retrieve_data_from_scheduling(
+    object_id=None, object_name=None, query_select="base_query"
+) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
     params = {
         "object_id": object_id,
         "object_name": object_name,
-        "query_select": query_select
+        "query_select": query_select,
     }
 
     query = build_query(**params)
@@ -73,25 +77,27 @@ def retrieve_data_from_scheduling(object_id = None, object_name = None, query_se
             port=os.getenv("API_PORT"),
         )
         airflow_df = pd.read_sql(query, conn)
-    except Exception as err:
-        print(err)
+    except pg.DatabaseError:
+        raise pg.DatabaseError
     finally:
         conn.close()
 
     return airflow_df
+
 
 @app.route("/all", methods=["GET"])
 def all():
 
     try:
         authentication_layer()
-        airflow_replica_df = retrieve_data_from_scheduling(query_select = "all_query")
+        airflow_replica_df = retrieve_data_from_scheduling(query_select="all_query")
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
     except UnauthorizedException:
         return error_handler("Missing API KEY.", HTTPStatus.UNAUTHORIZED)
     except (ForbiddenException, InvalidToken):
         return error_handler("Wrong API KEY.", HTTPStatus.FORBIDDEN)
+
 
 @app.route("/dag_id/<dag_id>", methods=["GET"])
 def dag_id(dag_id=None):
