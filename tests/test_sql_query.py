@@ -12,8 +12,7 @@ def test_build_query_success(mocker):
         "object_name": "object_name",
         "query_select": "base_query"
     }
-	query = {"base_query": "SELECT {{object_id}} FROM table WHERE {{object_id}} = {{object_name}}"}
-	expected = "SELECT object_id FROM table WHERE object_id = object_name"
+	query = "SELECT {{object_id}} FROM table WHERE {{object_id}} = {{object_name}}"
 	mocker.patch("models.templates.templates", return_value=query)
-	j.prepare_query.return_value = expected
+	j.prepare_query.return_value = (query, params)
 	assert sql_query.build_query(**params) == j.prepare_query.return_value
