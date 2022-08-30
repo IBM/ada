@@ -5,7 +5,7 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
-[![forthebadge](https://media.github.ibm.com/user/376942/files/8a535880-27e7-11ed-8340-edc7b6f1a231)](https://airflow.apache.org/)
+[![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)
 
 
 <br>
