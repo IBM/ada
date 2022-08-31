@@ -17,10 +17,6 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 
 Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior.
 
-By simply sending a request to ADA, you can:
-- Calculate DAG or task average runtime;
-
-
 <h1>Contents</h1>
 
 - [Features](#features)
@@ -56,7 +52,11 @@ Using ADA's SQL query you can get the following information:
 | standard_deviation  | Is my runtime too far from the average? |
 | variance  | How far is my runtime from the average? |
 
-One of the most powerful metric ADA retrieves is the **score**. 
+One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
+
+$$score = (\frac{ median + standard\;deviation}{median}) \times median \times 1.2$$
+
+The factor 1.2 was arbitrarily chosen in order to round up the score, acting like a safety factor.
 
 <h1>API</h1>
 
