@@ -3,9 +3,13 @@
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
-<div align="center">
-<a href="">![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)</a>
-</div>
+<p align="center">
+  <a href="https://airflow.apache.org/">
+    <img alt="Airflow" src="https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow" />
+  </a>
+</p>
+
+[![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)
 
 
 <br>
