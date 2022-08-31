@@ -3,8 +3,6 @@
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 [![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)
 
 
