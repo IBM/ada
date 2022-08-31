@@ -15,11 +15,14 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 
 <h1>Features</h1>
 
+Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By simply plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior.
+
 <h1>Contents</h1>
 
 - [Features](#features)
 - [Business context](#business-context)
 - [Usage](#usage)
+	- [Metrics](#metrics)
 - [API](#api)
 - [Deployment](#deployment)
 	- [Code Engine](#code-engine)
@@ -33,6 +36,10 @@ The amount of stuck pods became an increasing pain for us: whenever they happene
 Well, but what is the best way to identify a stuck pod? The answer is simple: based on historical data, we can tell if something is taking longer than it should to run. That’s when the perfect opportunity arose to implement, for the first time, a **Serverless computing module**.
 
 <h1>Usage</h1>
+
+<h2>Metrics</h2>
+
+One of the most powerful metric ADA retrieves is the **score**. 
 
 <h1>API</h1>
 
