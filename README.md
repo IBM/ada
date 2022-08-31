@@ -54,7 +54,11 @@ Using ADA's SQL query you can get the following information:
 
 One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
 
-$$score = (\frac{ median + standard\;deviation}{median}) \times median \times 1.2$$
+<p align="center">
+    <img src="https://media.github.ibm.com/user/376942/files/843ab480-296c-11ed-8966-457339cecf42" height="160">
+</p>
+
+<!-- $$score = (\frac{ median + standard\;deviation}{median}) \times median \times 1.2$$ -->
 
 The factor 1.2 was arbitrarily chosen in order to round up the score, acting like a safety factor.
 
