@@ -55,7 +55,7 @@ Using ADA's SQL query you can get the following information:
 One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
 
 <p align="center">
-    <img src="https://media.github.ibm.com/user/376942/files/843ab480-296c-11ed-8966-457339cecf42" height="70">
+    <img src="https://media.github.ibm.com/user/376942/files/843ab480-296c-11ed-8966-457339cecf42" height="50">
 </p>
 
 <!-- $$score = (\frac{ median + standard\;deviation}{median}) \times median \times 1.2$$ -->
