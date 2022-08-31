@@ -15,6 +15,7 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 
 <h2>Contents</h2>
 
+- [Features](#features)
 - [Business context](#business-context)
 - [Usage](#usage)
 - [API](#api)
@@ -22,6 +23,8 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 	- [Code Engine](#code-engine)
 - [Engine compatibility](#engine-compatibility)
 - [License](#license)
+
+<h2>Features</h2>
 
 <h2>Business context</h2>
 
