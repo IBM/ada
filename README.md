@@ -9,13 +9,13 @@
   </a>
 </p>
 
-<!-- <h2><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;What is ADA?</h2> -->
+<!-- <h1><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;What is ADA?</h1> -->
 
 ADA is a microservice created to retrieve key analytics metrics for task and dag level from your Airflow database instance.
 
-<h2>Features</h2>
+<h1>Features</h1>
 
-<h2>Contents</h2>
+<h1>Contents</h1>
 
 - [Features](#features)
 - [Business context](#business-context)
@@ -26,22 +26,22 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 - [Engine compatibility](#engine-compatibility)
 - [License](#license)
 
-<h2>Business context</h2>
+<h1>Business context</h1>
 
 The amount of stuck pods became an increasing pain for us: whenever they happened, they would demand support requests followed by analysis that often resulted in simple and manual actions. Based on that, there arose a need to automate this process, in other words, to make us able to identify a stuck pod and take the appropriate action in a fully automatic way, transparent for both developer and user.
 
 Well, but what is the best way to identify a stuck pod? The answer is simple: based on historical data, we can tell if something is taking longer than it should to run. That’s when the perfect opportunity arose to implement, for the first time, a **Serverless computing module**.
 
-<h2>Usage</h2>
+<h1>Usage</h1>
 
-<h2>API</h2>
+<h1>API</h1>
 
-<h2>Deployment</h2>
+<h1>Deployment</h1>
 
 <h3>Code Engine</h3>
 
 For more information, access https://cloud.ibm.com/docs/codeengine.
 
-<h2>Engine compatibility</h2>
+<h1>Engine compatibility</h1>
 
-<h2>License</h2>
+<h1>License</h1>
