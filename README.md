@@ -15,7 +15,11 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 
 <h1>Features</h1>
 
-Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By simply plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior.
+Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior.
+
+By simply sending a request to ADA, you can:
+- Calculate DAG or task average runtime;
+
 
 <h1>Contents</h1>
 
@@ -38,6 +42,19 @@ Well, but what is the best way to identify a stuck pod? The answer is simple: ba
 <h1>Usage</h1>
 
 <h2>Metrics</h2>
+
+Using ADA's SQL query you can get the following information:
+
+| Metric  | Insight  |
+| ------------ | ------------ |
+| score  | Is it taking longer than expected?  |
+| average  | What is its average runtime?  |
+| count_runs  | How many times did it run?  |
+| maximum  | What is its longest runtime?  |
+| minimum  | What is its shortest runtime?  |
+| median | What is the median runtime?  |
+| standard_deviation  | Is my runtime too far from the average? |
+| variance  | How far is my runtime from the average? |
 
 One of the most powerful metric ADA retrieves is the **score**. 
 
