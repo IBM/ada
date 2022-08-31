@@ -4,7 +4,7 @@
 </p>
 
 <div align="center">
-<a href="">[![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)</a>
+<a href="">![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)</a>
 </div>
 
 
