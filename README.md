@@ -9,9 +9,6 @@
   </a>
 </p>
 
-[![MADE FOR - AIRFLOW](https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow)](https://airflow.apache.org/)
-
-
 <br>
 
 <h2><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;What is ADA?</h2>
