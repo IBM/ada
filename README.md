@@ -31,11 +31,13 @@ Highly integrated with Airflow, ADA makes you able to retrieve data from your da
 
 <h1>Business context</h1>
 
-The amount of stuck pods became an increasing pain for us: whenever they happened, they would demand support requests followed by analysis that often resulted in simple and manual actions. Based on that, there arose a need to automate this process, in other words, to make us able to identify a stuck pod and take the appropriate action in a fully automatic way, transparent for both developer and user.
+Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide historical data about runtime. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
 
-Well, but what is the best way to identify a stuck pod? The answer is simple: based on historical data, we can tell if something is taking longer than it should to run. That’s when the perfect opportunity arose to implement, for the first time, a **Serverless computing module**.
+ADA can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
 <h1>Usage</h1>
+
+By deploying ADA, it becomes accessible to any other component you may wat to communicate with. 
 
 <h2>Metrics</h2>
 
