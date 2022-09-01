@@ -53,12 +53,14 @@ Using ADA's SQL query you can get the following information:
 | variance  | How far is my runtime from the average? |
 
 One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
-<br />
+
+&nbsp;
 
 <p align="center">
     <img src="https://latex.codecogs.com/svg.image?score%20=%20(%5Cfrac%7B%20median%20&plus;%20standard%5C;deviation%7D%7Bmedian%7D)%20%5Ctimes%20median%20%5Ctimes%201.2" height="45">
 </p>
-<br />
+
+&nbsp;
 
 The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>.
 
