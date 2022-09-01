@@ -15,7 +15,13 @@ ADA is a microservice created to retrieve key analytics metrics for task and dag
 
 <h1>Features</h1>
 
-Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior.
+Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior. 
+
+With ADA, you will be able to:
+
+1. Identify stuck pods
+2. Monitor DAGs and tasks performance
+3. Analyze outliers
 
 <h1>Contents</h1>
 
@@ -37,7 +43,7 @@ ADA can be fully decoupled from your code, which is great when you use an autosc
 
 <h1>Usage</h1>
 
-By deploying ADA, it becomes accessible to any other component you may wat to communicate with. 
+By deploying ADA, it becomes accessible to any other component you may wat to communicate with.
 
 <h2>Metrics</h2>
 
@@ -51,7 +57,7 @@ Using ADA's SQL query you can get the following information:
 | maximum  | What is its longest runtime?  |
 | minimum  | What is its shortest runtime?  |
 | median | What is the median runtime?  |
-| standard_deviation  | Is my runtime too far from the average? |
+| standard_deviation  | How often is my runtime far from the average? |
 | variance  | How far is my runtime from the average? |
 
 One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
@@ -64,9 +70,104 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 
 &nbsp;
 
-The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>.
+The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It gives the metric more trustable and robust, since it's less susceptible to outliers.
 
 <h1>API</h1>
+
+
+## API Reference
+
+### /all
+
+Return all combinations of `task_id` and `dag_id` in your database instance.
+
+#### Request
+```http
+  GET /all
+```
+
+#### Response
+ ```json
+ [
+    {
+        "task_id": "task_id_α",
+        "dag_id": "dag_id_α",
+        "count_runs": 1,
+        "average": 1,
+        "median": 1,
+        "maximum": 1,
+        "minimum": 1,
+        "standard_deviation": 1,
+        "variance_": 1,
+        "score": 1
+    },
+    ...,
+    {
+        "task_id": "task_id_β",
+        "dag_id": "dag_id_β",
+        "count_runs": 2,
+        "average": 2,
+        "median": 2,
+        "maximum": 2,
+        "minimum": 2,
+        "standard_deviation": 2,
+        "variance_": 2,
+        "score": 2
+    }
+]
+ ```
+
+### /dag_id
+
+Return metrics in a **DAG** level.
+
+#### Request
+```http
+  GET /dag_id/<your_dag_id>
+```
+
+#### Response
+ ```json
+ [
+    {
+        "dag_id": "dag_id_α",
+        "count_runs": 1,
+        "average": 1,
+        "median": 1,
+        "maximum": 1,
+        "minimum": 1,
+        "standard_deviation": 1,
+        "variance_": 1,
+        "score": 1
+    }
+]
+ ```
+
+### /task_id
+
+Return metrics in a **task** level.
+
+#### Request
+```http
+  GET /task_id/<your_task_id>
+```
+
+#### Response
+ ```json
+ [
+    {
+        "task_id": "task_id_α",
+        "count_runs": 1,
+        "average": 1,
+        "median": 1,
+        "maximum": 1,
+        "minimum": 1,
+        "standard_deviation": 1,
+        "variance_": 1,
+        "score": 1
+    }
+]
+ ```
 
 <h1>Deployment</h1>
 
