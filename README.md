@@ -74,9 +74,6 @@ The factor **1.2** was arbitrarily chosen in order to round up the score, acting
 
 <h1>API</h1>
 
-
-## API Reference
-
 ### /all
 
 Return all combinations of `task_id` and `dag_id` in your database instance.
