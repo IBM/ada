@@ -142,6 +142,8 @@ Return all combinations of `task_id` and `dag_id` in your database instance.
 ]
  ```
 
+* * *
+
 ### /dag_id
 
 Return metrics in a **DAG** level.
@@ -167,6 +169,8 @@ Return metrics in a **DAG** level.
     }
 ]
  ```
+
+* * *
 
 ### /task_id
 
