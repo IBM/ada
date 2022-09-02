@@ -35,7 +35,7 @@ With ADA, you will be able to:
 
 # Business context
 
-Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide historical data about runtime. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
+Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide historical data about duration. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
 
 ADA can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
@@ -50,13 +50,13 @@ Using ADA's SQL query you can get the following information:
 | Metric  | Insight  |
 | ------------ | ------------ |
 | score  | Is it taking longer than expected?  |
-| average  | What is its average runtime?  |
+| average  | What is its average duration?  |
 | count_runs  | How many times did it run?  |
-| maximum  | What is its longest runtime?  |
-| minimum  | What is its shortest runtime?  |
-| median | What is the median runtime?  |
-| standard_deviation  | How often is my runtime far from the average? |
-| variance  | How far is my runtime from the average? |
+| maximum  | What is its longest duration?  |
+| minimum  | What is its shortest duration?  |
+| median | What is the median duration?  |
+| standard_deviation  | How often is my duration far from the average? |
+| variance  | How far is my duration from the average? |
 
 One of the most powerful metric ADA retrieves is the **score**. It's calculated by:
 
