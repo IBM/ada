@@ -11,7 +11,7 @@
 
 <!-- <h1><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;What is ADA?</h1> -->
 
-ADA is a microservice created to retrieve key analytics metrics for task and dag level from your Airflow database instance.
+ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
 
 <h1>Features</h1>
 
@@ -70,7 +70,7 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 
 &nbsp;
 
-The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It gives the metric more trustable and robust, since it's less susceptible to outliers.
+The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It makes the metric more trustable and robust, since it's less susceptible to outliers.
 
 <h1>API reference</h1>
 
