@@ -29,6 +29,7 @@ With ADA, you will be able to:
 - [Business context](#business-context)
 - [Usage](#usage)
 	- [Metrics](#metrics)
+  - [Deployment](#deployment)
 - [API reference](#api-reference)
 - [Engine compatibility](#engine-compatibility)
 - [Contributing](#contributing)
@@ -70,6 +71,35 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 &nbsp;
 
 The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It makes the metric more trustable and robust, since it's less susceptible to outliers.
+
+## Deployment
+
+When deploying ADA, make sure you have set all required environment variables. You will need two different types of them:
+
+1. **Authorization**
+    
+    In order to encrypt/decrypt your keys, you need to set your `PRIV_KEY` and `API_KEY`. It's important to mention that ADA follows the [Fernet implementation](https://cryptography.io/en/latest/fernet/). 
+
+2. **Airflow database (Postgres)**
+
+    In order to access your Airflow database (Postgres supported), you need to add all of your connection settings. It includes: database, host, username, password and port. Check [psycopg](https://www.psycopg.org/docs/) documentation for more details.
+
+&nbsp;
+
+If nothing is missing, your docker run command when testing locally should look like this:
+
+ ```docker
+  docker run --name ada -p 7000:7000 --rm \
+    -e DATABASE=$DATABASE \
+    -e USER=$USER \
+    -e PASS=$PASS \
+    -e HOST=$HOST \
+    -e PORT=$PORT \
+    -e PRIV_KEY=$PRIV_KEY \
+    -e API_KEY=$API_KEY \
+    -i -t ada bash
+
+  ```
 
 # API reference
 
