@@ -29,7 +29,7 @@ With ADA, you will be able to:
 - [Business context](#business-context)
 - [Usage](#usage)
 	- [Metrics](#metrics)
-- [API](#api)
+- [API reference](#api-reference)
 - [Deployment](#deployment)
 	- [Code Engine](#code-engine)
 - [Engine compatibility](#engine-compatibility)
@@ -72,7 +72,7 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 
 The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It gives the metric more trustable and robust, since it's less susceptible to outliers.
 
-<h1>API</h1>
+<h1>API reference</h1>
 
 ### /all
 
