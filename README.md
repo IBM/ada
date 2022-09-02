@@ -31,6 +31,7 @@ With ADA, you will be able to:
 	- [Metrics](#metrics)
 - [API reference](#api-reference)
 - [Engine compatibility](#engine-compatibility)
+- [Contributing](#contributing)
 - [License](#license)
 
 # Business context
@@ -167,5 +168,11 @@ Return metrics in a **task** level.
 # Engine compatibility
 
 - Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine), [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) and [Microsoft Azure Functions](https://azure.microsoft.com/pt-br/services/functions/#overview).
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
 
 # License
