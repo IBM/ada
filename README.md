@@ -23,29 +23,27 @@ With ADA, you will be able to:
 2. Monitor DAGs and tasks performance
 3. Analyze outliers
 
-<h1>Contents</h1>
+# Contents
 
 - [Features](#features)
 - [Business context](#business-context)
 - [Usage](#usage)
 	- [Metrics](#metrics)
 - [API reference](#api-reference)
-- [Deployment](#deployment)
-	- [Code Engine](#code-engine)
 - [Engine compatibility](#engine-compatibility)
 - [License](#license)
 
-<h1>Business context</h1>
+# Business context
 
 Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide historical data about runtime. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
 
 ADA can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
-<h1>Usage</h1>
+# Usage
 
 By deploying ADA, it becomes accessible to any other component you may wat to communicate with.
 
-<h2>Metrics</h2>
+## Metrics
 
 Using ADA's SQL query you can get the following information:
 
@@ -72,7 +70,7 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 
 The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It makes the metric more trustable and robust, since it's less susceptible to outliers.
 
-<h1>API reference</h1>
+# API reference
 
 ### /all
 
@@ -166,12 +164,8 @@ Return metrics in a **task** level.
 ]
  ```
 
-<h1>Deployment</h1>
+# Engine compatibility
 
-<h3>Code Engine</h3>
+- Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine), [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) and [Microsoft Azure Functions](https://azure.microsoft.com/pt-br/services/functions/#overview).
 
-For more information, access https://cloud.ibm.com/docs/codeengine.
-
-<h1>Engine compatibility</h1>
-
-<h1>License</h1>
+# License
