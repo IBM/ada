@@ -173,6 +173,6 @@ Return metrics in a **task** level.
 
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
+See `docs/contributing.md` for ways to get started.
 
 # License
