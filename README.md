@@ -98,7 +98,6 @@ If nothing is missing, your docker run command when testing locally should look 
     -e PRIV_KEY=$PRIV_KEY \
     -e API_KEY=$API_KEY \
     -i -t ada bash
-
   ```
 
 # API reference
