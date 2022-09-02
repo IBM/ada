@@ -37,17 +37,17 @@ With ADA, you will be able to:
 
 # Business context
 
-Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide historical data about duration. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
+Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide a solution for those who want historical data about their DAGs. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
 
 ADA can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
 # Usage
 
-By deploying ADA, it becomes accessible to any other component you may wat to communicate with.
+By deploying ADA, it becomes accessible to any other component you may want to communicate with.
 
 ## Metrics
 
-Using ADA's SQL query you can get the following information:
+Using current ADA's SQL queries you can get the following information:
 
 | Metric  | Insight  |
 | ------------ | ------------ |
@@ -70,7 +70,7 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 
 &nbsp;
 
-The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It makes the metric more trustable and robust, since it's less susceptible to outliers.
+The score is the main metric you must analyze and rely on when identifying a stuck pod. You can use it as your threshold to decide to take - or not - an action about that run. The factor **1.2** was arbitrarily chosen in order to round up the score, acting like a <ins>safety factor</ins>. It makes the metric more trustable and robust, since it's less susceptible to outliers.
 
 ## Deployment
 
