@@ -78,13 +78,11 @@ When deploying ADA, make sure you have set all required environment variables. Y
 
 1. **Authorization**
     
-    In order to encrypt/decrypt your keys, you need to set your `PRIV_KEY` and `API_KEY`. It's important to mention that ADA follows the [Fernet implementation](https://cryptography.io/en/latest/fernet/). 
+    In order to encrypt/decrypt your keys, you need to set your `PRIV_KEY` and `API_KEY`. It's important to mention that ADA follows the [Fernet implementation](https://cryptography.io/en/latest/fernet/) style. 
 
 2. **Airflow database (Postgres)**
 
     In order to access your Airflow database (Postgres supported), you need to add all of your connection settings. It includes: database, host, username, password and port. Check [psycopg](https://www.psycopg.org/docs/) documentation for more details.
-
-&nbsp;
 
 If nothing is missing, your docker run command when testing locally should look like this:
 
@@ -202,7 +200,7 @@ Return metrics in a **task** level.
 
 - Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine), [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) and [Microsoft Azure Functions](https://azure.microsoft.com/pt-br/services/functions/#overview).
 
-## Contributing
+# Contributing
 
 Contributions are always welcome!
 
