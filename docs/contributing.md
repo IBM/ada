@@ -1,6 +1,6 @@
 # Contributing to ADA
 
-It's awesome to have you here! Contributions are more than welcome :) Thanks for taking the time to contribute :fa-heart:
+It's awesome to have you here! Contributions are more than welcome :) Thanks for taking the time to contribute :heart:
 
 ### How to report a bug
 
