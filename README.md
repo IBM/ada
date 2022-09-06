@@ -9,8 +9,6 @@
   </a>
 </p>
 
-<!-- <h1><img height="20" src="https://media.github.ibm.com/user/376942/files/ebc48480-231a-11ed-8b70-30e2b8893504">&nbsp;&nbsp;What is ADA?</h1> -->
-
 ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
 
 <h1>Features</h1>
