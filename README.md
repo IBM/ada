@@ -196,7 +196,7 @@ Return metrics in a **task** level.
 
 # Engine compatibility
 
-- Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine), [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) and [Microsoft Azure Functions](https://azure.microsoft.com/pt-br/services/functions/#overview).
+- Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine).
 
 # Contributing
 
