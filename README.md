@@ -205,3 +205,10 @@ Contributions are always welcome!
 See `docs/contributing.md` for ways to get started.
 
 # License
+
+ ```
+Copyright 2022 - IBM Inc. All rights reserved
+SPDX-License-Identifier: Apache 2.0
+ ```
+
+See LICENSE for the full license text.
