@@ -101,7 +101,7 @@ If you wish to predict you DAGs duration, ADA can help you with that as well! By
 If you still want to go further, ADA can provide the numbers to your machine learning model, such as an echo state network, or a math approach you design on your own!
 
 <p align="center">
-    <img src="https://media.github.ibm.com/user/376942/files/d6fa2780-3062-11ed-8403-26219552fda1">
+    <img src="https://media.github.ibm.com/user/376942/files/e891fe00-3067-11ed-8232-64693b505e71">
 </p>
 
 # API reference
