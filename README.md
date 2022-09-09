@@ -11,8 +11,6 @@
 
 ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
 
-&nbsp;
-
 Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior. 
 
 ADA was born to provide a solution for those who want historical data about their DAGs. It can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
@@ -31,9 +29,6 @@ ADA was born to provide a solution for those who want historical data about thei
 - [License](#license)
 
 # Usage
-
-By deploying ADA, it becomes accessible to any other component you may want to communicate with.
-
 ## Metrics
 
 Using current ADA's SQL queries you can get the following information:
