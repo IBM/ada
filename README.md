@@ -11,33 +11,24 @@
 
 ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
 
-<h1>Features</h1>
+&nbsp;
 
 Highly integrated with Airflow, ADA makes you able to retrieve data from your database and get analytical insights from it. By plugging ADA in your instance, you will get metrics that can help you to make decisions based on your DAGs historical behavior. 
 
-With ADA, you will be able to:
-
-1. Identify stuck pods
-2. Monitor DAGs and tasks performance
-3. Analyze outliers
+ADA was born to provide a solution for those who want historical data about their DAGs. It can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
 # Contents
 
-- [Features](#features)
-- [Business context](#business-context)
 - [Usage](#usage)
 	- [Metrics](#metrics)
   - [Deployment](#deployment)
+  - [Use cases](#use-cases)
+    - [Stuck pods](#stuck-pods)
+    - [DAG Predict](#dag-predict)
 - [API reference](#api-reference)
 - [Engine compatibility](#engine-compatibility)
 - [Contributing](#contributing)
 - [License](#license)
-
-# Business context
-
-Stuck pods may become a huge pain for developers: whenever they happen, they always demand attention. Based on that, ADA was born to provide a solution for those who want historical data about their DAGs. It means ADA enables you to identify if a pod is taking longer than it should, and then make quick decisions.
-
-ADA can be fully decoupled from your code, which is great when you use an autoscaling tool to host it. 
 
 # Usage
 
@@ -80,7 +71,7 @@ When deploying ADA, make sure you have set all required environment variables. Y
 
 2. **Airflow database (Postgres)**
 
-    In order to access your Airflow database (Postgres supported), you need to add all of your connection settings. It includes: database, host, username, password and port. Check [psycopg](https://www.psycopg.org/docs/) documentation for more details.
+    In order to access your Airflow database (Postgres supported), you need to add all of your connection settings. It includes: database, host, username, password and port. Check [psycopg](https://www.psycopg.org/docs/) and [IBM Cloud Databases for PostgreSQL](https://www.ibm.com/cloud/databases-for-postgresql) for more details.
 
 If nothing is missing, your docker run command when testing locally should look like this:
 
@@ -95,6 +86,28 @@ If nothing is missing, your docker run command when testing locally should look 
     -e API_KEY=$API_KEY \
     -i -t ada bash
   ```
+
+## Use cases
+
+Here are some great examples on how ADA can make you life a lot easier :)
+
+### Stuck pods
+
+If you're working integrated with [Apache Spark](https://spark.apache.org/), there's a chance **stuck pods** are a big pain for you. Whenever they happen, they always require attention and quick actions. With ADA, you'll have the metrics at hand! It means you can use the **score** to tell if it's taking longer - or not - than it should to run. Your workflow could look like this:
+
+<p align="center">
+    <img src="https://media.github.ibm.com/user/376942/files/e034c580-305d-11ed-974e-45eace3cf971">
+</p>
+
+### DAG Predict
+
+If you wish to predict you DAGs duration, ADA can help you with that as well! By using the metrics ADA provide, you will be able to tell what is the average runtime of a specific DAG. It means your process can be more transparent and reliable.
+
+If you still want to go further, ADA can provide the numbers to your machine learning model, such as an echo state network, or a math approach you design on your own!
+
+<p align="center">
+    <img src="https://media.github.ibm.com/user/376942/files/d6fa2780-3062-11ed-8403-26219552fda1">
+</p>
 
 # API reference
 
@@ -196,6 +209,7 @@ Return metrics in a **task** level.
 
 # Engine compatibility
 
+- Ready to be a **Serverless API**! 
 - Successfully deployed in [IBM Code Engine](https://cloud.ibm.com/docs/codeengine).
 
 # Contributing
