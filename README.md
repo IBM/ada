@@ -1,7 +1,9 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/79098111/189996422-97f8055c-9cf3-48a6-b7bf-b6d725cffef7.png" height="160">
-  <img alt="A single image caption for both variants" src="https://media.github.ibm.com/user/376942/files/7bb5fe80-231a-11ed-8440-8c14e1e3c289" height="160">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/79098111/189996422-97f8055c-9cf3-48a6-b7bf-b6d725cffef7.png" height="160">
+    <img alt="A single image caption for both variants" src="https://media.github.ibm.com/user/376942/files/7bb5fe80-231a-11ed-8440-8c14e1e3c289" height="160">
+  </picture>
+</p>
 
 <p align="center">
     <h1 align="center">Airflow DAG Analytics</h1>
