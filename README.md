@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/79098111/189996422-97f8055c-9cf3-48a6-b7bf-b6d725cffef7.png" height="160">
-    <img alt="A single image caption for both variants" src="https://media.github.ibm.com/user/376942/files/7bb5fe80-231a-11ed-8440-8c14e1e3c289" height="160">
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/79098111/190002134-54c8757d-1a6e-4002-b9e7-4d72cbc70cca.png" height="160">
+    <img src="https://user-images.githubusercontent.com/79098111/189998406-596a9822-3c45-4a52-81f2-b4f0e4c23216.png" height="160">
   </picture>
 </p>
 
