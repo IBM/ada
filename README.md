@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://media.github.ibm.com/user/376942/files/7bb5fe80-231a-11ed-8440-8c14e1e3c289" height="160">
+    <img src="https://user-images.githubusercontent.com/79098111/190011612-201a77aa-1111-45fe-937c-e994d3fdafa8.png" height="160">
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
@@ -49,7 +49,7 @@ One of the most powerful metric ADA retrieves is the **score**. It's calculated 
 &nbsp;
 
 <p align="center">
-    <img src="https://latex.codecogs.com/svg.image?score%20=%20(%5Cfrac%7B%20median%20&plus;%20standard%5C;deviation%7D%7Bmedian%7D)%20%5Ctimes%20median%20%5Ctimes%201.2" height="45">
+    <img src="https://media.github.ibm.com/user/376942/files/e7bcdd00-3383-11ed-8d3d-7f5772c73e72" height="45">
 </p>
 
 &nbsp;
@@ -211,7 +211,7 @@ Return metrics in a **task** level.
 
 Contributions are always welcome!
 
-See [contributing.md](https://github.ibm.com/EPM/ada/blob/master/docs/contributing.md) for ways to get started.
+See [contributing.md](https://github.com/IBM/ada/blob/master/docs/contributing.md) for ways to get started.
 
 # License
 
@@ -220,4 +220,4 @@ Copyright 2022 - IBM Inc. All rights reserved
 SPDX-License-Identifier: Apache 2.0
  ```
 
-See [LICENSE](https://github.ibm.com/EPM/ada/blob/master/LICENSE) for the full license text.
+See [LICENSE](https://github.com/IBM/ada/blob/master/LICENSE) for the full license text.
