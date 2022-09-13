@@ -5,9 +5,6 @@
   </picture>
 </p>
 
-![adalogo](https://user-images.githubusercontent.com/79098111/189998406-596a9822-3c45-4a52-81f2-b4f0e4c23216.png#gh-light-mode-only)
-![adalogo](https://user-images.githubusercontent.com/79098111/190002134-54c8757d-1a6e-4002-b9e7-4d72cbc70cca.png#gh-dark-mode-only)
-
 <p align="center">
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
