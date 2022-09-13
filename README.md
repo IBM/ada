@@ -1,11 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/79098111/190002134-54c8757d-1a6e-4002-b9e7-4d72cbc70cca.png" height="160">
-    <img src="https://user-images.githubusercontent.com/79098111/189998406-596a9822-3c45-4a52-81f2-b4f0e4c23216.png" height="160">
-  </picture>
-</p>
-
-<p align="center">
+    <img src="https://user-images.githubusercontent.com/79098111/190011302-624cbe99-cee1-4567-88cc-3e476c2c0072.png" height="160">
     <h1 align="center">Airflow DAG Analytics</h1>
 </p>
 
