@@ -76,7 +76,7 @@ If nothing is missing, your docker run command when testing locally should look 
     -e USER=$USER \
     -e PASS=$PASS \
     -e HOST=$HOST \
-    -e PORT=$PORT \
+    -e API_PORT=$API_PORT \
     -e PRIV_KEY=$PRIV_KEY \
     -e API_KEY=$API_KEY \
     -i -t ada bash
