@@ -78,6 +78,7 @@ def test_authentication_layer_forbidden(mocker, monkeypatch):
 
 
 def test_authentication_layer_invalid_token(monkeypatch):
+    # The key below is fake
     monkeypatch.setenv("PRIV_KEY", 'xcjlC4jxsFv0kse5aHE7fDYFEA6kReVnC0m10yz1vHg=')
     monkeypatch.setenv("API_KEY", "API_KEY")
     with pytest.raises(InvalidToken):
