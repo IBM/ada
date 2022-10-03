@@ -55,6 +55,7 @@ def test_error_handler():
 
 def test_authentication_layer_success(mocker, monkeypatch):
     monkeypatch.setenv("PRIV_KEY", "PRIV_KEY")
+    monkeypatch.setenv("API_KEY", "API_KEY")
     mocker.patch.object(Fernet, "__init__", return_value=None)
     mocker.patch.object(Fernet, "decrypt", return_value="valid_api_key".encode())
     with application.app.test_request_context(headers={"api_key": "valid_api_key"}):
@@ -69,6 +70,7 @@ def test_authentication_layer_unauthorized():
 
 def test_authentication_layer_forbidden(mocker, monkeypatch):
     monkeypatch.setenv("PRIV_KEY", "PRIV_KEY")
+    monkeypatch.setenv("API_KEY", "API_KEY")
     mocker.patch.object(Fernet, "__init__", side_effect=ForbiddenException)
     with pytest.raises(ForbiddenException):
         with application.app.test_request_context(headers={"api_key": "wrong_api_key"}):
@@ -77,6 +79,7 @@ def test_authentication_layer_forbidden(mocker, monkeypatch):
 
 def test_authentication_layer_invalid_token(monkeypatch):
     monkeypatch.setenv("PRIV_KEY", "PRIV_KEY")
+    monkeypatch.setenv("API_KEY", "API_KEY")
     with pytest.raises(InvalidToken):
         with application.app.test_request_context(headers={"api_key": "wrong_api_key"}):
             application.authentication_layer()
