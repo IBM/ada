@@ -7,6 +7,10 @@
   <a href="https://airflow.apache.org/">
     <img alt="Airflow" src="https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow" />
   </a>
+  <a>
+    <img alt="Pytest" src="https://github.com/IBM/ada/actions/workflows/python-app.yml/badge.svg?branch=master" />
+  </a>
+
 </p>
 
 ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
