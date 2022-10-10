@@ -69,7 +69,7 @@ ALL_QUERY = """
 			task_id not in ('start', 'end', 'check_end', 'end_failure', 'end.end_failure', 'end_success', 'end.end_success')
 			and state in ('success')
 			and start_date is not null
-			and try_number != 0)
+			and try_number != 0) ti
 		group by task_id, dag_id
 		order by task_id;
 	"""
