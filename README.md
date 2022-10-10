@@ -7,6 +7,10 @@
   <a href="https://airflow.apache.org/">
     <img alt="Airflow" src="https://img.shields.io/static/v1?label=MADE+FOR&message=AIRFLOW&color=017CEE&logo=Apache+Airflow" />
   </a>
+  <a>
+    <img alt="Pytest" src="https://github.com/IBM/ada/actions/workflows/python-app.yml/badge.svg?branch=master" />
+  </a>
+
 </p>
 
 ADA is a microservice created to retrieve key analytics metrics for task and DAG level from your Airflow database instance.
@@ -76,7 +80,7 @@ If nothing is missing, your docker run command when testing locally should look 
     -e USER=$USER \
     -e PASS=$PASS \
     -e HOST=$HOST \
-    -e PORT=$PORT \
+    -e API_PORT=$API_PORT \
     -e PRIV_KEY=$PRIV_KEY \
     -e API_KEY=$API_KEY \
     -i -t ada bash
