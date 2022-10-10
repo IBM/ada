@@ -17,7 +17,7 @@ DAG_QUERY = """
 			where
 			{{object_id}} in ('{{object_name}}')
 			and state in ('success')
-			and start_date is not null)
+			and start_date is not null) dr
 		group by {{object_id}}
 		order by {{object_id}};
 	"""
@@ -42,7 +42,7 @@ TASK_QUERY = """
 			and task_id not in ('start', 'end', 'check_end', 'end_failure', 'end.end_failure', 'end_success', 'end.end_success')
 			and state in ('success')
 			and start_date is not null
-			and try_number != 0)
+			and try_number != 0) ti
 		group by {{object_id}}
 		order by {{object_id}};
 	"""
