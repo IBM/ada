@@ -76,6 +76,6 @@ ALL_QUERY = """
 
 queries = {
     "dag_query": DAG_QUERY,
-	"task_query": TASK_QUERY,
-    "all_query" : ALL_QUERY,     
+    "task_query": TASK_QUERY,
+    "all_query": ALL_QUERY,
 }
