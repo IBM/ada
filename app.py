@@ -56,7 +56,7 @@ def authentication_layer() -> bool:
 
 
 def retrieve_data_from_scheduling(
-    object_id=None, object_name=None, query_select="base_query"
+    object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
 
@@ -105,7 +105,7 @@ def dag_id(dag_id=None):
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id
+            object_id="dag_id", object_name=dag_id, query_select="dag_query"
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
@@ -121,7 +121,7 @@ def task_id(task_id=None):
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="task_id", object_name=task_id
+            object_id="task_id", object_name=task_id, query_select="task_query"
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
