@@ -8,6 +8,8 @@ def build_query(**params):
         "object_id": params.get("object_id"),
         "object_name": params.get("object_name"),
         "query_select": params.get("query_select"),
+        "min_time": params.get("min_time"),
+        "max_time": params.get("max_time"),
     }
 
     query_template = queries.get(params.get("query_select"))

@@ -59,11 +59,12 @@ def retrieve_data_from_scheduling(
     object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
-
     params = {
         "object_id": object_id,
         "object_name": object_name,
         "query_select": query_select,
+        "min_time": request.headers.get("min_time", 1),
+        "max_time": request.headers.get("max_time", 1440),
     }
 
     query = build_query(**params)
