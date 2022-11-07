@@ -1,7 +1,4 @@
-FROM python:3.7
-
-ENV OPEN_JDK_VERSION 8
-ENV JAVA_HOME  /usr/lib/jvm/java-${OPEN_JDK_VERSION}-openjdk-amd64
+FROM python:3.10
 
 RUN echo "deb http://ftp.us.debian.org/debian stretch main" >> /etc/apt/sources.list && \
     apt-get update
@@ -9,10 +6,7 @@ RUN echo "deb http://ftp.us.debian.org/debian stretch main" >> /etc/apt/sources.
 RUN echo 'deb http://ftp.debian.org/debian stretch-backports main' | tee /etc/apt/sources.list.d/stretch-backports.list
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    "openjdk-${OPEN_JDK_VERSION}-jre-headless" \
-    ca-certificates-java && \
-    update-ca-certificates -f && \
+    apt-get install --yes --no-install-recommends && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir app
