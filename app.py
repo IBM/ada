@@ -59,7 +59,6 @@ def retrieve_data_from_scheduling(
     object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
-
     params = {
         "object_id": object_id,
         "object_name": object_name,
@@ -76,7 +75,15 @@ def retrieve_data_from_scheduling(
             host=os.getenv("HOST"),
             port=os.getenv("API_PORT"),
         )
-        airflow_df = pd.read_sql(query, conn)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        labels = []
+        for name in cursor.description:
+            labels.append(name[0])
+
+        airflow_df = pd.DataFrame(results, columns=labels)
     except pg.DatabaseError:
         raise pg.DatabaseError
     finally:
