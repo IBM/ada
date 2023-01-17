@@ -63,6 +63,8 @@ def retrieve_data_from_scheduling(
         "object_id": object_id,
         "object_name": object_name,
         "query_select": query_select,
+        "outlier_min": request.headers.get("outlier_min", 0),
+        "outlier_max": request.headers.get("outlier_max", 1440),
     }
 
     query = build_query(**params)
@@ -112,7 +114,7 @@ def dag_id(dag_id=None):
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id, query_select="dag_query"
+            object_id="dag_id", object_name=dag_id, query_select="dag_query",
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
