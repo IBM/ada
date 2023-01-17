@@ -63,6 +63,8 @@ def retrieve_data_from_scheduling(
         "object_id": object_id,
         "object_name": object_name,
         "query_select": query_select,
+        "outlier_min": request.headers.get("outlier_min", 0),
+        "outlier_max": request.headers.get("outlier_max", 1440),
     }
 
     query = build_query(**params)
