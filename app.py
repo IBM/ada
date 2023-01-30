@@ -59,7 +59,6 @@ def retrieve_data_from_scheduling(
     object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
-
     try:
         outlier_min = int(request.headers.get("outlier_min", 0))
         outlier_max = int(request.headers.get("outlier_max", 1440))
