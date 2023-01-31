@@ -59,12 +59,18 @@ def retrieve_data_from_scheduling(
     object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
+    try:
+        outlier_min = int(request.headers.get("outlier_min", 0))
+        outlier_max = int(request.headers.get("outlier_max", 1440))
+    except:
+        raise Exception("Invalid parameter, use integer")
+
     params = {
         "object_id": object_id,
         "object_name": object_name,
         "query_select": query_select,
-        "outlier_min": request.headers.get("outlier_min", 0),
-        "outlier_max": request.headers.get("outlier_max", 1440),
+        "outlier_min": outlier_min,
+        "outlier_max": outlier_max,
     }
 
     query = build_query(**params)
