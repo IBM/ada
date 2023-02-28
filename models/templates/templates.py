@@ -35,6 +35,8 @@ TASK_QUERY = """
 		ceiling(cast(variance(total_time) as bigint)) variance_,
 		ceiling(((ceiling(percentile_cont(0.5) within group (order by (total_time))) + ceiling(cast(stddev(total_time) as integer)))/ceiling(percentile_cont(0.5) within group (order by (total_time))))*ceiling(percentile_cont(0.5) within group (order by (total_time)))*1.2) score
 		from (select task_id, 
+			count(*) over (partition by task_id) as _count_rows,
+			row_number() over (partition by task_id order by end_date desc) as _row_number,
 			extract(epoch from (end_date - start_date))/60 total_time 
 			from task_instance
 			where
@@ -45,6 +47,7 @@ TASK_QUERY = """
 			and try_number != 0) ti
 		where total_time > {{outlier_min}}
 		and total_time < {{outlier_max}}
+		and _row_number <= {{pct_limit}}*_count_rows 
 		group by {{object_id}}
 		order by {{object_id}};
 	"""
