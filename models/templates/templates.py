@@ -10,8 +10,8 @@ DAG_QUERY = """
 		ceiling(cast(variance(total_time) as bigint)) variance_,
 		ceiling(((ceiling(percentile_cont(0.5) within group (order by (total_time))) + ceiling(cast(stddev(total_time) as integer)))/ceiling(percentile_cont(0.5) within group (order by (total_time))))*ceiling(percentile_cont(0.5) within group (order by (total_time)))*1.2) score
 		from (select dag_id,
-			count(*) over (partition by task_id) as _count_rows,
-			row_number() over (partition by task_id order by end_date desc) as _row_number,
+			count(*) over (partition by dag_id) as _count_rows,
+			row_number() over (partition by dag_id order by end_date desc) as _row_number,
 			extract(epoch from (end_date - start_date))/60 total_time 
 			from dag_run
 			where
