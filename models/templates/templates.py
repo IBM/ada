@@ -20,7 +20,7 @@ DAG_QUERY = """
 			and start_date is not null) dr
 		where total_time > {{outlier_min}}
 		and total_time < {{outlier_max}}
-        and _row_number <= {{pct_limit}}*_count_rows 
+        and _row_number <= {{pct_limit}}*_count_rows
 		group by {{object_id}}
 		order by {{object_id}};
 	"""

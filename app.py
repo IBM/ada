@@ -66,7 +66,7 @@ def retrieve_data_from_scheduling(
         raise Exception("Invalid parameter, use integer")
 
     try:
-        pct_limit = float(request.headers.get("pct_limit", 0.3))
+        pct_limit = float(request.headers.get("pct_limit", 1))
     except:
         raise Exception("Invalid parameter, use float between 0.1 and 1.0")
 
