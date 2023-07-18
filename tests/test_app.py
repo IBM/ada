@@ -5,15 +5,9 @@ import json
 import pytest
 import psycopg2 as pg
 import pandas as pd
-from unittest import mock
 from http import HTTPStatus
 
 client = application.app.test_client()
-
-
-class PostgreMock:
-    def close(self):
-        return True
 
 
 @pytest.fixture
@@ -87,8 +81,8 @@ def test_authentication_layer_invalid_token(monkeypatch):
 
 
 def test_retrieve_data_from_scheduling_success(mocker, mock_df):
-    mocker.patch.object(pg, "connect", return_value=PostgreMock())
-    mocker.patch.object(pd, "read_sql", return_value=mock_df)
+    mocker.patch.object(pg, "connect", return_value=mocker.MagicMock())
+    mocker.patch.object(pd, "DataFrame", return_value=mock_df)
     with application.app.test_request_context():
         mock_df = application.retrieve_data_from_scheduling(
             object_id="object_id", object_name="object_name"
@@ -96,8 +90,7 @@ def test_retrieve_data_from_scheduling_success(mocker, mock_df):
 
 
 def test_retrieve_data_from_scheduling_database_error(mocker):
-    mocker.patch.object(pg, "connect", return_value=PostgreMock())
-    mocker.patch.object(pd, "read_sql", side_effect=pg.DatabaseError)
+    mocker.patch.object(pg, "connect", side_effect=pg.DatabaseError)
     with pytest.raises(pg.DatabaseError):
         with application.app.test_request_context():
             application.retrieve_data_from_scheduling(
