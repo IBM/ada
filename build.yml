@@ -1,0 +1,7 @@
+ealImapNumber: EAL-005942
+notifications:
+  slackChannel: epm-uif-notifications-test
+build:
+  strategy: simple-pipeline
+  pipeline: python-v38-compliance
+  version: v1
