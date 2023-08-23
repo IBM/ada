@@ -70,6 +70,7 @@ def retrieve_data_from_scheduling(
     except:
         raise Exception("Invalid parameter, use float between 0.1 and 1.0")
 
+    conn = None
     params = {
         "object_id": object_id,
         "object_name": object_name,
@@ -101,7 +102,8 @@ def retrieve_data_from_scheduling(
     except pg.DatabaseError:
         raise pg.DatabaseError
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
     return airflow_df
 
