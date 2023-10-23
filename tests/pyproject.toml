@@ -1,0 +1,5 @@
+[tool.poetry]
+name = "epm-ada"
+version = "1.0.0"
+description = "A microservice to retrieve key analytics metrics for task and DAG level from Airflow database instance."
+authors = ["UIF Squad <EPM.UIF@ibm.com>"]
