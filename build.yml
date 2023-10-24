@@ -12,8 +12,8 @@ build:
     cirrus-pipeline-name: epm-ada
     service-port: '8000'
     cirrus-project-name: epm-ada
-    cirrus-api-username: 'encrypted:v1:AAABi0L+4JBmzzSyvWkrYwmUeDmeKp+wuJUwhi+eXhAl35Ha8aLlrc42a31SCyr6QoFjOxoDXS0c8noPfFk7HXSC5GrXnGbNhsNpkf5qtyc5m1XaMW8nUfTEF9L86gsj9dOe2dvyaPYxLq8E+x8wn3qZmKMlKkiMSZa1AXQyueUWXtmdxwmuaMerL5zhE+RSN5Aud8YNz7Q='
-    cirrus-api-password: 'encrypted:v1:AAABi0L+4JAev/KO3zX6ljm0m+XxefMJfJCvQkQi0gUZOhhJ2bLWBEeMcUgxpMUOxtIq/Z/XDkkPqqo3r5TGShahq5ZPrszjBfOAMphMcB2ztYGfuGGIjR6dy7eZqrXUzV6OIe6sBuIZO+khfgBMk65XegR/wLB8GLZJWobCFZnAU5UVPV2oUP5iZjaIA7oDx+K2v201h+GB4CcIOKci50LQl3qX8oDM0BYWl+SudQ=='
+    cirrus-api-username: 'encrypted:v1:AAABi0L+4JD2m4K7KJGcMPiPcza+JQnLY6bDedwiWX4wg/9a2f29/Ihs4fx2nPUPV5jkIm+nwmMB+y5OkUt6lf+vWb4AdBwirjkcB6B7w3RNxXsp6Cyd9rxE9xgmGwHczeYsoEAAOw0DZcqJfrMtPj35E0sN3qccVON/F7V0qD+9pwStOUT3+31j0K125x/ZA4Nlhb14sIU='
+    cirrus-api-password: 'encrypted:v1:AAABi0L+4JBAQIKCPiZPvvDrABQGO2Zi86nk5oXjF7QLQeIAgMjCybkprMLKyWId98bGZ2ldoQtLxIDmhg3o/4RLMyCsfaBt1nNC/A+vt/dYIWIfmOz+KlFwLFGtSXM1fzaov0KFSH6LsY5xkvXB5RzQ9+lIbrVqXL4/5cY22o0rj+OaA7BgOPqmOsewAYNFw8+nIYEMzfB1ggeBYiYFErRs+qn9CFH8mDpZL/g88g=='
     cirrus-region: us-south2
 release:
   environments:
