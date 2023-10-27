@@ -1,17 +1,11 @@
 apiVersion: cirrus.ibm.com/v1alpha1
 kind: Application
 metadata:
-  name: epm-ada
+  name: epm-ada-test
 spec:
-  env:
-    - name: SMTP_SERVER
-      value: "na.relay.ibm.com"
-    - name: ALLOWED_BGS
-      value: "epm-services-staging,epm-services-prod"
-    - name: JWT_ALGORITHM
-      value: "RS256"
-    - name: LOG_LEVEL
-      value: "DEBUG"
-  envFrom:
-    - secretRef:
-        name: epm-ada
+  replicas: 1
+  startingQuota: "q1gb"
+  quota: "turbo"
+  # envFrom:
+  #   - secretRef:
+  #       name: epm-ada
