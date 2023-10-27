@@ -17,7 +17,7 @@ build:
     cirrus-region: us-south2
 release:
   environments:
-    - name: staging
+    - name: test
       deploy-verification-memory-request: "q1gb"
     - name: pre-production
       deploy-verification-memory-request: "q1gb"
