@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: epm-ada-black
 spec:
-  replicas: 1
+  replicas: 2
   startingQuota: "q1gb"
   quota: "turbo"
   # envFrom:
