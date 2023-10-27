@@ -8,4 +8,4 @@ spec:
   quota: "turbo"
   # envFrom:
   #   - secretRef:
-  #       name: epm-ada
+  #       name: epm-ada-test

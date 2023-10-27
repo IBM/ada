@@ -3,26 +3,9 @@ kind: Application
 metadata:
   name: epm-ada-red
 spec:
-  livenessProbe:
-    httpGet:
-      path: /health/ping
-    periodSeconds: 30
-    timeoutSeconds: 30
-  readinessProbe:
-    httpGet:
-      path: /health/ping
-    periodSeconds: 30
-    timeoutSeconds: 30
-  replicas: 2
-  env:
-    - name: SMTP_SERVER
-      value: "na.relay.ibm.com"
-    - name: ALLOWED_BGS
-      value: "epm-services-staging,epm-services-prod"
-    - name: JWT_ALGORITHM
-      value: "RS256"
-    - name: LOG_LEVEL
-      value: "DEBUG"
-  envFrom:
-    - secretRef:
-        name: epm-ada-red
+  replicas: 1
+  startingQuota: "q1gb"
+  quota: "turbo"
+  # envFrom:
+  #   - secretRef:
+  #       name: epm-ada-red
