@@ -3,6 +3,16 @@ kind: Application
 metadata:
   name: epm-ada-test
 spec:
+  livenessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
+  readinessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
   replicas: 1
   startingQuota: "q1gb"
   quota: "turbo"

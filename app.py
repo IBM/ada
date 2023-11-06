@@ -159,5 +159,10 @@ def page_not_found(e):
     return error_handler("Route not found.", HTTPStatus.NOT_FOUND)
 
 
+@app.get("/health/ping")
+async def health_check():
+    return {"status": "available"}
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=7000, debug=True)

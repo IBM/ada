@@ -3,7 +3,17 @@ kind: Application
 metadata:
   name: epm-ada-black
 spec:
-  replicas: 2
+  livenessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
+  readinessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
+  replicas: 3
   startingQuota: "q1gb"
   quota: "turbo"
   # envFrom:
