@@ -16,6 +16,6 @@ spec:
   replicas: 1
   startingQuota: "q1gb"
   quota: "turbo"
-  # envFrom:
-  #   - secretRef:
-  #       name: ada-secrets
+  envFrom:
+    - secretRef:
+        name: ada-secrets
