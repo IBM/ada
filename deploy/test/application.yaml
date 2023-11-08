@@ -1,7 +1,7 @@
 apiVersion: cirrus.ibm.com/v1alpha1
 kind: Application
 metadata:
-  name: epm-ada-test
+  name: epm-ada
 spec:
   livenessProbe:
     httpGet:
