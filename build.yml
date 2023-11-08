@@ -5,7 +5,7 @@ jiraProjectName: EPMKEY
 notifications:
   slackChannel: epm-uif-notifications-test
 build:
-  strategy: container-release
+  strategy: cirrus-deployment
   pipeline: python-v3.9-micropipenv-container-image
   version: v2
   config:

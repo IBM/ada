@@ -1,7 +1,7 @@
 apiVersion: cirrus.ibm.com/v1alpha1
 kind: Application
 metadata:
-  name: epm-ada-red
+  name: ada-red
 spec:
   livenessProbe:
     httpGet:
