@@ -1,7 +1,7 @@
 apiVersion: cirrus.ibm.com/v1alpha1
 kind: Application
 metadata:
-  name: epm-ada-black
+  name: ada-black
 spec:
   livenessProbe:
     httpGet:
