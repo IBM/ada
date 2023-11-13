@@ -13,7 +13,7 @@ spec:
       path: /health/ping
     periodSeconds: 30
     timeoutSeconds: 30
-  replicas: 1
+  replicas: 2
   startingQuota: "q1gb"
   quota: "turbo"
   envFrom:
