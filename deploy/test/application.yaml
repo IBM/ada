@@ -14,6 +14,8 @@ spec:
     periodSeconds: 30
     timeoutSeconds: 30
   replicas: 2
+  startingQuota: "q256mb"
+  quota: "turbo"
   envFrom:
     - secretRef:
         name: ada-secrets

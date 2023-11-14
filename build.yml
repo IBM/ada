@@ -15,3 +15,11 @@ build:
     cirrus-api-username: 'encrypted:v1:AAABi0L+4JD2m4K7KJGcMPiPcza+JQnLY6bDedwiWX4wg/9a2f29/Ihs4fx2nPUPV5jkIm+nwmMB+y5OkUt6lf+vWb4AdBwirjkcB6B7w3RNxXsp6Cyd9rxE9xgmGwHczeYsoEAAOw0DZcqJfrMtPj35E0sN3qccVON/F7V0qD+9pwStOUT3+31j0K125x/ZA4Nlhb14sIU='
     cirrus-api-password: 'encrypted:v1:AAABi0L+4JBAQIKCPiZPvvDrABQGO2Zi86nk5oXjF7QLQeIAgMjCybkprMLKyWId98bGZ2ldoQtLxIDmhg3o/4RLMyCsfaBt1nNC/A+vt/dYIWIfmOz+KlFwLFGtSXM1fzaov0KFSH6LsY5xkvXB5RzQ9+lIbrVqXL4/5cY22o0rj+OaA7BgOPqmOsewAYNFw8+nIYEMzfB1ggeBYiYFErRs+qn9CFH8mDpZL/g88g=='
     cirrus-region: us-south2
+release:
+  environments:
+    - name: test
+      deploy-verification-memory-request: "q256mb"
+    - name: pre-production
+      deploy-verification-memory-request: "q256mb"
+    - name: production
+      deploy-verification-memory-request: "q256mb"
