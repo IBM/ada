@@ -1,7 +1,7 @@
 apiVersion: cirrus.ibm.com/v1alpha1
 kind: Application
 metadata:
-  name: ada-test
+  name: ada
 spec:
   livenessProbe:
     httpGet:

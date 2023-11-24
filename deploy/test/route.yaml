@@ -1,4 +1,4 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: ada-test
+  name: ada
