@@ -24,7 +24,7 @@ Recently, we implemented a change in the development approach to better align wi
 
 ### Branch `nonprod`
 
-From now on, all change PRs must be merged to the `nonprod` branch. This branch will serve as a testing environment, allowing changes to be reviewed and tested before being integrated into the `master` branch.
+From now on, all PRs must be merged to the `nonprod` branch. This branch will serve as a testing environment, allowing changes to be reviewed and tested before being integrated into the `master` branch.
 
 #### Recommended Workflow
 
