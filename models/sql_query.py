@@ -10,7 +10,9 @@ def build_query(**params):
         "query_select": params.get("query_select"),
         "outlier_min": params.get("outlier_min"),
         "outlier_max": params.get("outlier_max"),
-        "pct_limit": params.get("pct_limit"),
+        "limit": params.get("limit"),
+        "stddev_multiplier": params.get("stddev_multiplier"),
+        "score_threshold": params.get("score_threshold"),
     }
 
     query_template = queries.get(params.get("query_select"))
