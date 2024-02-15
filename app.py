@@ -62,15 +62,13 @@ def retrieve_data_from_scheduling(
     try:
         outlier_min = int(request.headers.get("outlier_min", 0))
         outlier_max = int(request.headers.get("outlier_max", 1440))
-        limit = int(request.headers.get("limit", 25))
     except:
         raise Exception("Invalid parameter, use integer")
 
     try:
-        stddev_multiplier = float(request.headers.get("stddev_multiplier", 3))
-        score_threshold = float(request.headers.get("score_threshold", 1.4))
+        pct_limit = float(request.headers.get("pct_limit", 1))
     except:
-        raise Exception("Invalid parameter, use float")
+        raise Exception("Invalid parameter, use float between 0.1 and 1.0")
 
     conn = None
     params = {
@@ -79,9 +77,7 @@ def retrieve_data_from_scheduling(
         "query_select": query_select,
         "outlier_min": outlier_min,
         "outlier_max": outlier_max,
-        "limit": limit,
-        "stddev_multiplier": stddev_multiplier,
-        "score_threshold": score_threshold,
+        "pct_limit": pct_limit,
     }
 
     query = build_query(**params)
