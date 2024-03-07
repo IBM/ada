@@ -21,9 +21,8 @@ ADA was born to provide a solution for those who want historical data about thei
 
 # Contents
 
-- [Contents](#contents)
 - [Usage](#usage)
-  - [Metrics](#metrics)
+	- [Metrics](#metrics)
   - [Deployment](#deployment)
   - [Use cases](#use-cases)
     - [Stuck pods](#stuck-pods)
@@ -216,7 +215,7 @@ Return metrics in a **task** level.
 
 Contributions are always welcome!
 
-See [contributing.md](docs/contributing.md) for ways to get started.
+See [contributing.md](https://github.com/IBM/ada/blob/master/docs/contributing.md) for ways to get started.
 
 # License
 

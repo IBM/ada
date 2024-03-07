@@ -6,9 +6,9 @@ DAG_QUERY = """
 		ceiling(percentile_cont(0.5) within group (order by (total_time))) median, 
 		ceiling(max(total_time)) maximum,
 		ceiling(min(total_time)) minimum,
-		ceiling(cast(stddev(total_time) as integer)) standard_deviation,
-		ceiling(cast(variance(total_time) as bigint)) variance_,
-		ceiling((avg(total_time) + {{stddev_multiplier}}*cast(stddev(total_time) as integer))*{{score_threshold}}) score
+		ceiling(stddev(total_time)) standard_deviation,
+		ceiling(variance(total_time)) variance_,
+		ceiling((avg(total_time) + {{stddev_multiplier}}*ceiling(stddev(total_time)))*{{score_threshold}}) score
 		from (select dag_id,
 			count(*) over (partition by dag_id) as _count_rows,
 			row_number() over (partition by dag_id order by end_date desc) as _row_number,
@@ -34,9 +34,9 @@ TASK_QUERY = """
 		ceiling(percentile_cont(0.5) within group (order by (total_time))) median, 
 		ceiling(max(total_time)) maximum,
 		ceiling(min(total_time)) minimum,
-		ceiling(cast(stddev(total_time) as integer)) standard_deviation,
-		ceiling(cast(variance(total_time) as bigint)) variance_,
-		ceiling((avg(total_time) + {{stddev_multiplier}}*cast(stddev(total_time) as integer))*{{score_threshold}}) score
+		ceiling(stddev(total_time)) standard_deviation,
+		ceiling(variance(total_time)) variance_,
+		ceiling((avg(total_time) + {{stddev_multiplier}}*ceiling(stddev(total_time)))*{{score_threshold}}) score
 		from (select task_id, dag_id,
 			count(*) over (partition by task_id) as _count_rows,
 			row_number() over (partition by task_id order by end_date desc) as _row_number,
@@ -66,9 +66,9 @@ ALL_QUERY = """
 		ceiling(percentile_cont(0.5) within group (order by (total_time))) median, 
 		ceiling(max(total_time)) maximum,
 		ceiling(min(total_time)) minimum,
-		ceiling(cast(stddev(total_time) as integer)) standard_deviation,
-		ceiling(cast(variance(total_time) as bigint)) variance_,
-		ceiling((avg(total_time) + {{stddev_multiplier}}*cast(stddev(total_time) as integer))*{{score_threshold}}) score
+		ceiling(stddev(total_time)) standard_deviation,
+		ceiling(variance(total_time)) variance_,
+		ceiling((avg(total_time) + {{stddev_multiplier}}*ceiling(stddev(total_time)))*{{score_threshold}}) score
 		from (
 			select *, 
 			row_number() over (partition by task_id, dag_id order by dag_id) runs, 
