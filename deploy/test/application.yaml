@@ -1,0 +1,21 @@
+apiVersion: cirrus.ibm.com/v1alpha1
+kind: Application
+metadata:
+  name: ada
+spec:
+  livenessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
+  readinessProbe:
+    httpGet:
+      path: /health/ping
+    periodSeconds: 30
+    timeoutSeconds: 30
+  replicas: 2
+  startingQuota: "q256mb"
+  quota: "turbo"
+  envFrom:
+    - secretRef:
+        name: ada-secrets
