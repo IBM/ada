@@ -56,14 +56,33 @@ def authentication_layer() -> bool:
 
 
 def retrieve_data_from_scheduling(
-    object_id=None, object_name=None, query_select="base_query"
+    object_id=None, object_name=None, query_select="dag_query"
 ) -> DataFrame:
     """Connect to Scheduling database, execute SQL query and retrieve desired data."""
+    try:
+        outlier_min = int(request.headers.get("outlier_min", 0))
+        outlier_max = int(request.headers.get("outlier_max", 1440))
+        limit = int(request.headers.get("limit", 25))
+    except:
+        raise Exception("Invalid parameter, use integer")
 
+    try:
+        stddev_multiplier = float(request.headers.get("stddev_multiplier", 3))
+        score_threshold = float(request.headers.get("score_threshold", 1.4))
+    except:
+        raise Exception("Invalid parameter, use float")
+    dag_id = request.headers.get("dag_id", "")
+    conn = None
     params = {
         "object_id": object_id,
         "object_name": object_name,
         "query_select": query_select,
+        "outlier_min": outlier_min,
+        "outlier_max": outlier_max,
+        "limit": limit,
+        "stddev_multiplier": stddev_multiplier,
+        "score_threshold": score_threshold,
+        "dag_id": dag_id
     }
 
     query = build_query(**params)
@@ -76,11 +95,20 @@ def retrieve_data_from_scheduling(
             host=os.getenv("HOST"),
             port=os.getenv("API_PORT"),
         )
-        airflow_df = pd.read_sql(query, conn)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        labels = []
+        for name in cursor.description:
+            labels.append(name[0])
+
+        airflow_df = pd.DataFrame(results, columns=labels)
     except pg.DatabaseError:
         raise pg.DatabaseError
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
     return airflow_df
 
@@ -105,7 +133,7 @@ def dag_id(dag_id=None):
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="dag_id", object_name=dag_id
+            object_id="dag_id", object_name=dag_id, query_select="dag_query"
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
@@ -121,7 +149,7 @@ def task_id(task_id=None):
     try:
         authentication_layer()
         airflow_replica_df = retrieve_data_from_scheduling(
-            object_id="task_id", object_name=task_id
+            object_id="task_id", object_name=task_id, query_select="task_query"
         )
         airflow_replica_df = airflow_replica_df.to_json(orient="records")
         return airflow_replica_df
@@ -134,6 +162,11 @@ def task_id(task_id=None):
 @app.errorhandler(404)
 def page_not_found(e):
     return error_handler("Route not found.", HTTPStatus.NOT_FOUND)
+
+
+@app.get("/health/ping")
+async def health_check():
+    return {"status": "available"}
 
 
 if __name__ == "__main__":
