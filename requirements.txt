@@ -8,7 +8,7 @@ itsdangerous==2.1.2
 Jinja2==3.0.2
 jinjasql==0.1.8
 MarkupSafe==2.1.2
-numpy==1.24.2
+numpy>=1.21.6
 pandas==1.5.1
 psycopg2-binary==2.9.5
 pycparser==2.21
